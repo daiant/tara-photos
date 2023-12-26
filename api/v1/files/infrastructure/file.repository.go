@@ -56,6 +56,29 @@ func GetFileById(id int64) (domain.FileResponse, error) {
 	}, nil
 }
 
+func GetAllFiles() ([]domain.FileResponse, error) {
+	db := database.Connect()
+	defer db.Close()
+	rows, err := db.Query(`SELECT filename, created_at from posts`)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var files []domain.FileResponse
+	for rows.Next() {
+		var file domain.FileResponse
+		if err := rows.Scan(&file.Filename, &file.Created_At); err != nil {
+			return files, err
+		}
+		files = append(files, file)
+	}
+	if err = rows.Err(); err != nil {
+		return files, err
+	}
+	return files, nil
+}
+
 func getFilenameWithBucket(filename string) string {
 	return domain.DESTINATION + filename
 }

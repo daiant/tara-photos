@@ -40,6 +40,7 @@ func main() {
 	r.HandleFunc("/", Hello)
 	r.HandleFunc("/post", Chain(presentation.CreateFile, Cors())).Methods("POST")
 	r.HandleFunc("/get/{id:[0-9]+}", Chain(presentation.GetFile, Cors())).Methods("GET")
+	r.HandleFunc("/get/all", Chain(presentation.GetAllFiles, Cors())).Methods("GET")
 	r.HandleFunc("/bucket/{file}", Chain(presentation.DownloadFile, Cors())).Methods("GET")
 	// r.HandleFunc("/get/", middlewares.Chain(GetAll, middlewares.Logging())).Methods("GET")
 	// db := database.Connect()

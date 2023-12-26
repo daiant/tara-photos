@@ -33,6 +33,10 @@ func GetFileById(id int64) (domain.FileResponse, error) {
 	return infrastructure.GetFileById(id)
 }
 
+func GetAllFiles() ([]domain.FileResponse, error) {
+	return infrastructure.GetAllFiles()
+}
+
 func getFilename(date int64, handler *multipart.FileHeader) string {
 	return strconv.Itoa(int(date)) + "-" + handler.Filename
 }

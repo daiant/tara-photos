@@ -30,6 +30,17 @@ func CreateFile(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Fprintln(w, "Successo! ", id)
 }
+func GetAllFiles(w http.ResponseWriter, r *http.Request) {
+	files, err := application.GetAllFiles()
+	if err != nil {
+		fmt.Println(err)
+		http.Error(w, "Unknown error", http.StatusInternalServerError)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusCreated)
+	json.NewEncoder(w).Encode(files)
+}
 
 func GetFile(w http.ResponseWriter, r *http.Request) {
 	reqVars := mux.Vars(r)
@@ -37,6 +48,7 @@ func GetFile(w http.ResponseWriter, r *http.Request) {
 	idInt, err := strconv.ParseInt(id, 10, 64)
 	if err != nil {
 		http.Error(w, "Id not a number", http.StatusBadRequest)
+		return
 	}
 
 	fileResponse, err := application.GetFileById(idInt)
