@@ -38,6 +38,24 @@ func GetFilenameById(id int64) (string, error) {
 	return getFilenameWithBucket(filename), nil
 }
 
+func GetFileById(id int64) (domain.FileResponse, error) {
+	db := database.Connect()
+	result := db.QueryRow(`SELECT filename, created_at from posts WHERE id = ?`, id)
+	var (
+		filename   string
+		created_at int64
+	)
+	if err := result.Scan(&filename, &created_at); err != nil {
+		fmt.Println(err)
+		return domain.FileResponse{}, err
+	}
+	defer db.Close()
+	return domain.FileResponse{
+		Filename:   filename,
+		Created_At: created_at,
+	}, nil
+}
+
 func getFilenameWithBucket(filename string) string {
 	return domain.DESTINATION + filename
 }

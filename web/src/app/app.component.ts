@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
+import { FileService } from '../lib/files/file.service';
 
 @Component({
   selector: 'app-root',
@@ -10,5 +11,11 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'web';
+  fileService = inject(FileService);
+  title = 'Tara Photos';
+
+  async getFile() {
+    const blob = await this.fileService.getById(1);
+    console.log('👻 ~ getFile ~ blob:', blob);
+  }
 }

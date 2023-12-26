@@ -1,9 +1,11 @@
 package presentation
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"server/v1/files/application"
+	"server/v1/files/domain"
 	"strconv"
 
 	"github.com/gorilla/mux"
@@ -37,12 +39,20 @@ func GetFile(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Id not a number", http.StatusBadRequest)
 	}
 
-	filename, err := application.GetFilenameById(idInt)
+	fileResponse, err := application.GetFileById(idInt)
 	if err != nil {
 		fmt.Println(err)
 		fmt.Fprintln(w, "Error getting image", http.StatusInternalServerError)
 		return
 	}
+	fmt.Println(fileResponse)
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusCreated)
+	json.NewEncoder(w).Encode(fileResponse)
+}
+func DownloadFile(w http.ResponseWriter, r *http.Request) {
+	reqVars := mux.Vars(r)
+	filename := reqVars["file"]
 	fmt.Println(filename)
-	http.ServeFile(w, r, "./"+filename)
+	http.ServeFile(w, r, domain.DESTINATION+filename)
 }
