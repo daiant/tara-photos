@@ -17,8 +17,7 @@ func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/", Hello)
 	r.HandleFunc("/post", presentation.CreateFile).Methods("POST")
-	// r.HandleFunc("/post", middlewares.Chain(Upload, middlewares.Logging())).Methods("POST")
-	// r.HandleFunc("/get/{id:[0-9]+}", middlewares.Chain(Get, middlewares.Logging())).Methods("GET")
+	r.HandleFunc("/get/{id:[0-9]+}", presentation.GetFile).Methods("GET")
 	// r.HandleFunc("/get/", middlewares.Chain(GetAll, middlewares.Logging())).Methods("GET")
 	// db := database.Connect()
 

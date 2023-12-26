@@ -25,6 +25,10 @@ func CreateFile(file multipart.File, handler *multipart.FileHeader) (int64, erro
 	return id, nil
 }
 
+func GetFilenameById(id int64) (string, error) {
+	return infrastructure.GetFilenameById(id)
+}
+
 func getFilename(date int64, handler *multipart.FileHeader) string {
 	return strconv.Itoa(int(date)) + "-" + handler.Filename
 }

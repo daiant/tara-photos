@@ -4,6 +4,9 @@ import (
 	"fmt"
 	"net/http"
 	"server/v1/files/application"
+	"strconv"
+
+	"github.com/gorilla/mux"
 )
 
 func CreateFile(w http.ResponseWriter, r *http.Request) {
@@ -26,50 +29,20 @@ func CreateFile(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintln(w, "Successo! ", id)
 }
 
-// func Upload(w http.ResponseWriter, r *http.Request) {
-// 	fmt.Println("Upload new file")
-// 	fmt.Printf("Uploaded File: %+v\n", handler.Filename)
-// 	fmt.Printf("File Size: %+v\n", handler.Size)
-// 	fmt.Printf("MIME Header: %+v\n", handler.Header)
+func GetFile(w http.ResponseWriter, r *http.Request) {
+	reqVars := mux.Vars(r)
+	id := reqVars["id"]
+	idInt, err := strconv.ParseInt(id, 10, 64)
+	if err != nil {
+		http.Error(w, "Id not a number", http.StatusBadRequest)
+	}
 
-// 	// Create a temporary file within our temp-images directory that follows
-// 	// a particular naming pattern
-// 	if err != nil {
-// 		fmt.Println(err)
-// 		http.Error(w, "Unknown error", http.StatusInternalServerError)
-// 		return
-// 	}
-// 	tempFile, err := os.CreateTemp("temp-images", "upload-*"+extension)
-// 	if err != nil {
-// 		fmt.Println(err)
-// 		http.Error(w, "Unknown error", http.StatusInternalServerError)
-// 		return
-// 	}
-// 	defer tempFile.Close()
-
-// 	// read all of the contents of our uploaded file into a
-// 	// byte array
-// 	fileBytes, err := io.ReadAll(file)
-// 	if err != nil {
-// 		fmt.Println(err)
-// 		http.Error(w, "Unknown error", http.StatusInternalServerError)
-// 		return
-// 	}
-// 	// write this byte array to our temporary file
-// 	tempFile.Write(fileBytes)
-// 	// return that we have successfully uploaded our file!
-// 	dbError := database.CreateEntry(tempFile.Name())
-// 	if dbError != nil {
-// 		fmt.Println(dbError)
-// 		http.Error(w, "Error uploading to db", http.StatusInternalServerError)
-// 	} else {
-// 		fmt.Fprintf(w, "Successfully Uploaded File\n")
-// 	}
-// }
-// func getFilenameExtension(filename string) (string, error) {
-// 	if filename == "" {
-// 		return "", errors.New("filename empty")
-// 	}
-// 	filenameSlice := strings.Split(filename, ".")
-// 	return "." + filenameSlice[len(filenameSlice)-1], nil
-// }
+	filename, err := application.GetFilenameById(idInt)
+	if err != nil {
+		fmt.Println(err)
+		fmt.Fprintln(w, "Error getting image", http.StatusInternalServerError)
+		return
+	}
+	fmt.Println(filename)
+	http.ServeFile(w, r, "./"+filename)
+}
