@@ -7,3 +7,8 @@ require (
 	github.com/gorilla/mux v1.8.1
 	golang.org/x/text v0.14.0
 )
+
+require (
+	github.com/prplecake/go-thumbnail v0.1.6 // indirect
+	golang.org/x/image v0.0.0-20220302094943-723b81ca9867 // indirect
+)

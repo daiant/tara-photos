@@ -1,36 +1,16 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
-import { FileService } from '../lib/files/file.service';
-import { FileType } from '../types/file.type';
+import { RouterModule, RouterOutlet } from '@angular/router';
+
+import { ThumbnailComponent } from './components/thumbnail/thumbnail.component';
+import { ImageDetailsComponent } from './components/image-detail/image-detail.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet],
+  imports: [CommonModule, RouterOutlet, RouterModule, ThumbnailComponent, ImageDetailsComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
 
-  fileService = inject(FileService);
-  title = 'Tara Photos';
-  files: Array<FileType> = [];
-  img: string = "";
-
-  ngOnInit() {
-    this._updateFiles();
-  }
-  async _updateFiles() {
-    this.files = await this.fileService.getAll()
-  }
-  getFile(filename: string): string {
-    return this.fileService.DOWNLOAD_URL + filename
-  }
-  async handleSubmit(event: SubmitEvent) {
-    event.preventDefault();
-    const form = new FormData(event.target as HTMLFormElement);
-    await this.fileService.uploadFile(form);
-    this._updateFiles()
-  }
 }

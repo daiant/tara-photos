@@ -39,9 +39,13 @@ func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/", Hello)
 	r.HandleFunc("/post", Chain(presentation.CreateFile, Cors())).Methods("POST")
+	r.HandleFunc("/post/multiple", Chain(presentation.CreateMultipleFiles, Cors())).Methods("POST")
 	r.HandleFunc("/get/{id:[0-9]+}", Chain(presentation.GetFile, Cors())).Methods("GET")
 	r.HandleFunc("/get/all", Chain(presentation.GetAllFiles, Cors())).Methods("GET")
+	r.HandleFunc("/get/trash", Chain(presentation.GetDeletedFiles, Cors())).Methods("GET")
 	r.HandleFunc("/bucket/{file}", Chain(presentation.DownloadFile, Cors())).Methods("GET")
+	r.HandleFunc("/thumbs/{file}", Chain(presentation.DownloadThumb, Cors())).Methods("GET")
+	r.HandleFunc("/delete/{id:[0-9]+}", Chain(presentation.DeleteFile, Cors())).Methods("GET")
 	// r.HandleFunc("/get/", middlewares.Chain(GetAll, middlewares.Logging())).Methods("GET")
 	// db := database.Connect()
 
@@ -61,7 +65,7 @@ func main() {
 		fmt.Println("table is there, nothing to do.")
 	} else {
 		fmt.Println("table not there, creating table")
-		database.CreatePostsTable()
+		database.CreateTables()
 	}
 	fmt.Printf("\nServer started and listening on port: %v\n", port)
 }

@@ -1,0 +1,20 @@
+<div class="wrapper">
+  <header>
+    <h1>{{file?.Filename}}</h1>
+    <div class="actions">
+      <button (click)="handleDeleteAlert()">Eliminar</button>
+      <button (click)="handleClose()">Cerrar</button>
+    </div>
+  </header>
+  <main>
+    <img src={{getFile()}} alt="">
+  </main>
+  <footer></footer>
+</div>
+<div class="delete_alert" *ngIf="deleteAlertVisibility">
+  <header>Cuidado! Borrar??</header>
+  <div class="actions">
+    <button (click)="deleteAlertVisibility = false;">Cancelar</button>
+    <button (click)="handleDelete()">Borrar</button>
+  </div>
+</div>

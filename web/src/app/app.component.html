@@ -1,16 +1,1 @@
-<h1>Images</h1>
-<form (submit)="handleSubmit($event)">
-  <input type="file" name="file" id="file">
-  <button>Subir :)</button>
-</form>
-<ul style="display: flex; flex-wrap: wrap; gap: 4px; list-style: none; padding: 0;">
-  @defer {
-  <li *ngFor="let item of files">
-    <img src={{getFile(item.Filename)}} alt={{item.Filename}}>
-  </li>
-  } @placeholder {
-  <p>image</p>
-  } @loading {
-  <p>Loading...</p>
-  }
-</ul>
+<router-outlet></router-outlet>

@@ -1,3 +1,4 @@
 package domain
 
-var DESTINATION = "../bucket/"
+var BUCKET = "../bucket/"
+var THUMBNAIL = BUCKET + "thumbs/"

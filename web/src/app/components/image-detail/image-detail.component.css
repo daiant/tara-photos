@@ -1,0 +1,30 @@
+.wrapper {
+  position: fixed;
+  z-index: 9;
+  background-color: lightblue;
+  border-radius: 16px;
+  border: darkgoldenrod;
+  inset: 16px;
+  padding: 16px;
+}
+
+img {
+  max-width: 80%;
+  height: auto;
+  width: auto;
+  max-height: 80vh;
+}
+
+.delete_alert {
+  position: fixed;
+  min-width: min(100%, 300px);
+  min-height: 300px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  background-color: cadetblue;
+  border-radius: 8px;
+  display: grid;
+  place-content: center;
+}
