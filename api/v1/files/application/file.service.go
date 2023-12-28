@@ -37,10 +37,6 @@ func CreateFile(user_id int64, file multipart.File, handler *multipart.FileHeade
 	return id, nil
 }
 
-func GetFilenameById(id int64) (string, error) {
-	return infrastructure.GetFilenameById(id)
-}
-
 func GetFileById(id int64) (domain.FileResponse, error) {
 	return infrastructure.GetFileById(id)
 }

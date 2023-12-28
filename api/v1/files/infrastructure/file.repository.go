@@ -23,21 +23,6 @@ func CreateDBEntry(fileEntity domain.File) (int64, error) {
 	return id, nil
 }
 
-func GetFilenameById(id int64) (string, error) {
-	db := database.Connect()
-	result := db.QueryRow(`SELECT filename, created_at from posts WHERE id = ?`, id)
-	var (
-		filename   string
-		created_at int64
-	)
-	if err := result.Scan(&filename, &created_at); err != nil {
-		fmt.Println(err)
-		return "", err
-	}
-	defer db.Close()
-	return getFilenameWithBucket(filename), nil
-}
-
 func GetFileById(id int64) (domain.FileResponse, error) {
 	db := database.Connect()
 	result := db.QueryRow(`SELECT posts.id, posts.filename, thumbnails.filename AS thumbnail, posts.created_at 
@@ -124,8 +109,4 @@ func DeleteFileEntry(file domain.FileDelete) error {
 	defer db.Close()
 	_, err := db.Exec(`UPDATE posts SET deleted_at = ? WHERE id = ?`, file.Deleted_At, file.Id)
 	return err
-}
-
-func getFilenameWithBucket(filename string) string {
-	return domain.BUCKET + filename
 }
