@@ -35,7 +35,7 @@ func CreateTables() {
 	exec(db, `CREATE TABLE user_tokens (
 		id INT PRIMARY KEY AUTO_INCREMENT,
 		user_id INT NOT NULL,
-		token TEXT NOT NULL,
+		token TEXT NOT NULL UNIQUE,
 		created_at BIGINT NOT NULL,
 		deleted_at BIGINT,
 		FOREIGN KEY (user_id) REFERENCES users(id)

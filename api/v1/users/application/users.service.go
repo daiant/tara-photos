@@ -1,6 +1,7 @@
 package application
 
 import (
+	"fmt"
 	"server/v1/users/domain"
 	"server/v1/users/infrastructure"
 	"time"
@@ -28,6 +29,14 @@ func Login(email string, password string) (string, error) {
 	return token, err
 }
 
+func GetTokenExists(token string) bool {
+	id, err := infrastructure.GetTokenId(token)
+	if err != nil {
+		fmt.Printf("Error retrieving token: %v\n", err)
+		return false
+	}
+	return id >= 0
+}
 func createToken(user_id int64) (string, error) {
 	token := domain.TokenAggregate{
 		User_id:    user_id,

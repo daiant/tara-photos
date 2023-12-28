@@ -44,7 +44,7 @@ func GetFileById(id int64) (domain.FileResponse, error) {
 		FROM posts
 		LEFT JOIN thumbnails
 		ON posts.id = thumbnails.post_id
-		WHERE id = ? 
+		WHERE posts.id = ? 
 		AND posts.deleted_at IS NULL
 	`, id)
 	var file domain.FileResponse
