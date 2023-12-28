@@ -1,7 +1,9 @@
 <header>
-  <nav>
-    <a routerLink="/">Tara photos</a>
-    <a routerLink="/trash">Papelera</a>
-  </nav>
+  <ng-container *ngIf="isLoggedIn">
+    <nav>
+      <a routerLink="/">Tara photos</a>
+      <a routerLink="/trash">Papelera</a>
+    </nav>
+  </ng-container>
 </header>
 <router-outlet></router-outlet>

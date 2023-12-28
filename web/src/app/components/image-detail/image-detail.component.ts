@@ -1,8 +1,8 @@
-import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output, inject } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterOutlet } from "@angular/router";
 import { FileType } from "../../../lib/files/types/file.type";
-import { DOWNLOAD_URL } from "../../../lib/files/constants/file.constants";
+import { FileService } from "../../../lib/files/file.service";
 
 @Component({
   selector: 'tara-image-details',
@@ -11,14 +11,21 @@ import { DOWNLOAD_URL } from "../../../lib/files/constants/file.constants";
   templateUrl: "./image-detail.component.html",
   styleUrls: ["./image-detail.component.css"],
 })
-export class ImageDetailsComponent {
+export class ImageDetailsComponent implements OnInit {
   deleteAlertVisibility = false;
+  src = '';
+  fileService = inject(FileService);
   @Input() file?: FileType;
   @Output() onDelete = new EventEmitter<FileType>
   @Output() onClose = new EventEmitter<void>;
 
-  getFile() {
-    return this.file ? DOWNLOAD_URL + this.file.Filename : "/placeholder.webp"
+  ngOnInit() {
+    this.getFile();
+  }
+  async getFile() {
+    const blob = await this.fileService.getImage(this.file) as Blob | null;
+    if (!blob) return;
+    this.src = URL.createObjectURL(blob);
   }
   handleDeleteAlert() {
     this.deleteAlertVisibility = true;
