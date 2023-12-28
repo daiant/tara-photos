@@ -28,7 +28,9 @@ func Login(email string, password string) (string, error) {
 	}
 	return token, err
 }
-
+func GetUserByToken(token string) (domain.UserResponse, error) {
+	return infrastructure.GetUserByAccessToken(token)
+}
 func GetTokenExists(token string) bool {
 	id, err := infrastructure.GetTokenId(token)
 	if err != nil {

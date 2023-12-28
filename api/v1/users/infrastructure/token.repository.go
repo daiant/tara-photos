@@ -36,5 +36,4 @@ func GetTokenId(token string) (int64, error) {
 		return -1, err
 	}
 	return id, nil
-
 }

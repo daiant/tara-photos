@@ -8,6 +8,7 @@ import { Router } from "@angular/router";
 export class LoginComponent {
   router = inject(Router);
   setToken() {
+    globalThis.localStorage.setItem("user", "charli");
     globalThis.localStorage.setItem("token", "uuuuuuquerandommmmmm");
     this.router.navigate(["/"])
   }

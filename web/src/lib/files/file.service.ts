@@ -41,13 +41,8 @@ export class FileService {
       return []
     });
   }
-  async uploadFile(formData: FormData): Promise<void> {
-    return await fetch(POST_URL, { method: "POST", body: formData, headers: commonHeaders() }).then(response => {
-      return;
-    })
-  }
   async uploadFiles(formData: FormData): Promise<void> {
-    return await fetch(POST_URL + '/multiple', { method: "POST", body: formData, headers: commonHeaders() }).then(response => {
+    return await fetch(POST_URL, { method: "POST", body: formData, headers: commonHeaders() }).then(response => {
       return;
     })
   }

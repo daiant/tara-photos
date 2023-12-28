@@ -4,16 +4,18 @@ import (
 	"mime/multipart"
 	"server/v1/files/domain"
 	"server/v1/files/infrastructure"
+	auth_domain "server/v1/users/domain"
 	"strconv"
 	"time"
 )
 
-func CreateFile(file multipart.File, handler *multipart.FileHeader) (int64, error) {
+func CreateFile(user_id int64, file multipart.File, handler *multipart.FileHeader) (int64, error) {
 	date := getDate()
 	filename := getFilename(date, handler)
 	fileEntity := domain.File{
 		Filename:   filename,
 		File:       file,
+		User_id:    user_id,
 		Created_At: date,
 	}
 	err := infrastructure.CreateFile(fileEntity)
@@ -43,11 +45,11 @@ func GetFileById(id int64) (domain.FileResponse, error) {
 	return infrastructure.GetFileById(id)
 }
 
-func GetAllFiles() ([]domain.FileResponse, error) {
-	return infrastructure.GetAllFiles()
+func GetAllFilesByUser(user auth_domain.UserResponse) ([]domain.FileResponse, error) {
+	return infrastructure.GetAllFiles(user.Id)
 }
-func GetDeletedFiles() ([]domain.FileResponse, error) {
-	return infrastructure.GetDeletedFiles()
+func GetDeletedFiles(user auth_domain.UserResponse) ([]domain.FileResponse, error) {
+	return infrastructure.GetDeletedFiles(user.Id)
 }
 
 func DeleteFile(id int) error {

@@ -19,8 +19,7 @@ func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/", Hello)
 	// Images Controllers
-	r.HandleFunc("/post", Chain(files_controllers.CreateFile, Authentication(), Cors())).Methods("POST", "OPTIONS")
-	r.HandleFunc("/post/multiple", Chain(files_controllers.CreateMultipleFiles, Authentication(), Cors())).Methods("POST", "OPTIONS")
+	r.HandleFunc("/post", Chain(files_controllers.CreateMultipleFiles, Authentication(), Cors())).Methods("POST", "OPTIONS")
 	r.HandleFunc("/get/{id:[0-9]+}", Chain(files_controllers.GetFile, Authentication(), Cors())).Methods("GET", "OPTIONS")
 	r.HandleFunc("/get/all", Chain(files_controllers.GetAllFiles, Authentication(), Cors())).Methods("GET", "OPTIONS")
 	r.HandleFunc("/get/trash", Chain(files_controllers.GetDeletedFiles, Authentication(), Cors())).Methods("GET", "OPTIONS")

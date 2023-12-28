@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 	"server/v1/users/application"
 	"strings"
@@ -27,7 +26,6 @@ func Authentication() Middleware {
 		// Define the http.HandlerFunc
 		return func(w http.ResponseWriter, r *http.Request) {
 			if r.Method == "OPTIONS" {
-				fmt.Fprintln(w, "Eiiieeee")
 				return
 			}
 			token := strings.TrimPrefix(r.Header.Get("Authorization"), "Bearer ")

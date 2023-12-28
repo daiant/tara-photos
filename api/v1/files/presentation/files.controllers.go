@@ -6,12 +6,21 @@ import (
 	"net/http"
 	"server/v1/files/application"
 	"server/v1/files/domain"
+	auth_application "server/v1/users/application"
+	auth_domain "server/v1/users/domain"
 	"strconv"
+	"strings"
 
 	"github.com/gorilla/mux"
 )
 
 func CreateMultipleFiles(w http.ResponseWriter, r *http.Request) {
+	user, err := getUser(r)
+	if err != nil {
+		fmt.Println(err)
+		http.Error(w, "Unknown error", http.StatusInternalServerError)
+		return
+	}
 	fmt.Println("Creating multiple files controller")
 	r.ParseMultipartForm(10 << 20)
 	for _, fh := range r.MultipartForm.File["file"] {
@@ -23,7 +32,7 @@ func CreateMultipleFiles(w http.ResponseWriter, r *http.Request) {
 		}
 		// Read data from f
 		defer f.Close()
-		id, responseErr := application.CreateFile(f, fh)
+		id, responseErr := application.CreateFile(user.Id, f, fh)
 		if responseErr != nil {
 			fmt.Println("Error: ", responseErr)
 			http.Error(w, "Something went wrong", http.StatusInternalServerError)
@@ -33,27 +42,15 @@ func CreateMultipleFiles(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Fprintln(w, "Successo!")
 }
-func CreateFile(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("Creating file controller")
-	r.ParseMultipartForm(10 << 20)
-	file, handler, err := r.FormFile("file")
+
+func GetAllFiles(w http.ResponseWriter, r *http.Request) {
+	user, err := getUser(r)
 	if err != nil {
 		fmt.Println(err)
-		http.Error(w, "No file uploaded", http.StatusBadRequest)
+		http.Error(w, "Unknown error", http.StatusInternalServerError)
 		return
 	}
-	defer file.Close()
-
-	id, responseErr := application.CreateFile(file, handler)
-	if responseErr != nil {
-		fmt.Println("Error: ", responseErr)
-		http.Error(w, "Something went wrong", http.StatusInternalServerError)
-		return
-	}
-	fmt.Fprintln(w, "Successo! ", id)
-}
-func GetAllFiles(w http.ResponseWriter, r *http.Request) {
-	files, err := application.GetAllFiles()
+	files, err := application.GetAllFilesByUser(user)
 	if err != nil {
 		fmt.Println(err)
 		http.Error(w, "Unknown error", http.StatusInternalServerError)
@@ -64,7 +61,13 @@ func GetAllFiles(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(files)
 }
 func GetDeletedFiles(w http.ResponseWriter, r *http.Request) {
-	files, err := application.GetDeletedFiles()
+	user, err := getUser(r)
+	if err != nil {
+		fmt.Println(err)
+		http.Error(w, "Unknown error", http.StatusInternalServerError)
+		return
+	}
+	files, err := application.GetDeletedFiles(user)
 	if err != nil {
 		fmt.Println(err)
 		http.Error(w, "Unknown error", http.StatusInternalServerError)
@@ -121,4 +124,9 @@ func DeleteFile(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintln(w, "Unexpected error", http.StatusInternalServerError)
 	}
 	fmt.Fprintln(w, "Successo!")
+}
+
+func getUser(r *http.Request) (auth_domain.UserResponse, error) {
+	token := strings.TrimPrefix(r.Header.Get("Authorization"), "Bearer ")
+	return auth_application.GetUserByToken(token)
 }

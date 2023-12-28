@@ -12,6 +12,7 @@ import { ImageDetailsComponent } from './components/image-detail/image-detail.co
   templateUrl: './app.component.html',
 })
 export class AppComponent implements OnInit {
+
   router = inject(Router);
   ngOnInit(): void {
     const url = new URL(window.location.href).pathname;
@@ -23,5 +24,8 @@ export class AppComponent implements OnInit {
   }
   get isLoggedIn() {
     return globalThis.localStorage.getItem("token");
+  }
+  get user() {
+    return globalThis.localStorage.getItem("user")
   }
 }

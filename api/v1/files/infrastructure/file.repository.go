@@ -9,8 +9,8 @@ import (
 func CreateDBEntry(fileEntity domain.File) (int64, error) {
 	db := database.Connect()
 	result, err := db.Exec(`
-		INSERT INTO posts (filename, created_at) VALUES (?, ?)
-	`, fileEntity.Filename, fileEntity.Created_At)
+		INSERT INTO posts (filename, user_id, created_at) VALUES (?, ?, ?)
+	`, fileEntity.Filename, fileEntity.User_id, fileEntity.Created_At)
 	if err != nil {
 		fmt.Println(err)
 		return -1, err
@@ -56,15 +56,19 @@ func GetFileById(id int64) (domain.FileResponse, error) {
 	return file, nil
 }
 
-func GetAllFiles() ([]domain.FileResponse, error) {
+func GetAllFiles(id int64) ([]domain.FileResponse, error) {
 	db := database.Connect()
 	defer db.Close()
 	rows, err := db.Query(`SELECT posts.id, posts.filename, thumbnails.filename AS thumbnail, posts.created_at 
 		FROM posts 
 		LEFT JOIN thumbnails 
 		ON posts.id = thumbnails.post_id 
-		WHERE posts.deleted_at IS NULL
-	`)
+		LEFT JOIN users
+		ON users.id = posts.user_id
+		WHERE posts.user_id = ? 
+		AND posts.deleted_at IS NULL
+		AND users.deleted_at IS NULL
+	`, id)
 	if err != nil {
 		return nil, err
 	}
@@ -84,15 +88,18 @@ func GetAllFiles() ([]domain.FileResponse, error) {
 	return files, nil
 }
 
-func GetDeletedFiles() ([]domain.FileResponse, error) {
+func GetDeletedFiles(id int64) ([]domain.FileResponse, error) {
 	db := database.Connect()
 	defer db.Close()
-	rows, err := db.Query(`SELECT posts.id, posts.filename, thumbnails.filename AS thumbnail, posts.created_at 
+	rows, err := db.Query(`SELECT posts.id, posts.filename, thumbnails.filename AS thumbnail, posts.user_id,  posts.created_at 
 		FROM posts 
 		LEFT JOIN thumbnails 
 		ON posts.id = thumbnails.post_id 
-		WHERE posts.deleted_at IS NOT NULL
-	`)
+		INNER JOIN users
+		ON posts.user_id = users.id
+		WHERE posts.user_id = ? 
+		AND posts.deleted_at IS NOT NULL
+	`, id)
 	if err != nil {
 		return nil, err
 	}
@@ -101,7 +108,7 @@ func GetDeletedFiles() ([]domain.FileResponse, error) {
 	var files []domain.FileResponse
 	for rows.Next() {
 		var file domain.FileResponse
-		if err := rows.Scan(&file.Id, &file.Filename, &file.Thumbnail, &file.Created_At); err != nil {
+		if err := rows.Scan(&file.Id, &file.Filename, &file.Thumbnail, &file.User_id, &file.Created_At); err != nil {
 			return files, err
 		}
 		files = append(files, file)
