@@ -39,6 +39,9 @@ yarn-error.log
 testem.log
 /typings
 
+# Go
+/api/server.exe
+
 # System files
 .DS_Store
 Thumbs.db
