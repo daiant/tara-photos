@@ -26,12 +26,12 @@ func Login(email string, password string) (string, error) {
 	}
 	token, err := infrastructure.GetTokenByUserId(user.Id)
 	if err != nil {
-		return createToken(user.Id)
+		return CreateAccessToken(user.Id)
 	}
 	return token, err
 }
 func GetUserByToken(tokenString string) (int64, error) {
-	token, err := CheckToken(tokenString)
+	token, err := CheckAccessToken(tokenString)
 	if err != nil {
 		return -1, err
 	}
@@ -40,28 +40,22 @@ func GetUserByToken(tokenString string) (int64, error) {
 	}
 	return -1, nil
 }
-func GetTokenExists(token string) bool {
-	id, err := infrastructure.GetTokenId(token)
+
+func GetUserInfo(id int64) (string, error) {
+	user, err := infrastructure.GetUserById(id)
 	if err != nil {
-		fmt.Printf("Error retrieving token: %v\n", err)
-		return false
+		return "", nil
 	}
-	return id >= 0
+	return generateIdToken(user)
 }
-func createToken(user_id int64) (string, error) {
-	jwtToken, err := GenerateToken(user_id)
-	if err != nil {
-		fmt.Println(err)
-		return "", err
-	}
-	token := domain.TokenAggregate{
-		User_id:    user_id,
-		Token:      jwtToken,
-		Created_at: time.Now().UnixMilli(),
-	}
-	responseErr := infrastructure.GenerateToken(token)
-	if responseErr != nil {
-		return "", err
-	}
-	return token.Token, nil
+func generateIdToken(user domain.UserResponse) (string, error) {
+	fmt.Printf("Generating id token for user %v\n", user.Id)
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+		"Id":         user.Id,
+		"Username":   user.Username,
+		"Email":      user.Email,
+		"Created_at": user.Created_at,
+	})
+	tokenString, err := token.SignedString([]byte(domain.TOKEN_SECRET))
+	return tokenString, err
 }

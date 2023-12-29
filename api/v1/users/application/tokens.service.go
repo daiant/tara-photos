@@ -3,6 +3,7 @@ package application
 import (
 	"fmt"
 	"server/v1/users/domain"
+	"server/v1/users/infrastructure"
 	"time"
 
 	"github.com/golang-jwt/jwt"
@@ -15,11 +16,27 @@ func GenerateToken(id int64) (string, error) {
 		"created": time.Now().UnixMilli(),
 	})
 	tokenString, err := token.SignedString([]byte(domain.TOKEN_SECRET))
-	fmt.Println(tokenString, err)
 	return tokenString, err
 }
 
-func CheckToken(tokenString string) (*jwt.Token, error) {
+func CreateAccessToken(user_id int64) (string, error) {
+	jwtToken, err := GenerateToken(user_id)
+	if err != nil {
+		fmt.Println(err)
+		return "", err
+	}
+	token := domain.TokenAggregate{
+		User_id:    user_id,
+		Token:      jwtToken,
+		Created_at: time.Now().UnixMilli(),
+	}
+	responseErr := infrastructure.GenerateToken(token)
+	if responseErr != nil {
+		return "", err
+	}
+	return token.Token, nil
+}
+func CheckAccessToken(tokenString string) (*jwt.Token, error) {
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		// Don't forget to validate the alg is what you expect:
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
@@ -33,4 +50,12 @@ func CheckToken(tokenString string) (*jwt.Token, error) {
 		return nil, err
 	}
 	return token, nil
+}
+func GetTokenExists(token string) bool {
+	id, err := infrastructure.GetTokenId(token)
+	if err != nil {
+		fmt.Printf("Error retrieving token: %v\n", err)
+		return false
+	}
+	return id >= 0
 }

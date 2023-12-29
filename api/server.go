@@ -31,6 +31,7 @@ func main() {
 	authRouter.HandleFunc("/hello", Chain(auth_controllers.Hello, Cors())).Methods("GET", "OPTIONS")
 	authRouter.HandleFunc("/register", Chain(auth_controllers.Register, Cors())).Methods("POST", "OPTIONS")
 	authRouter.HandleFunc("/login", Chain(auth_controllers.Login, Cors())).Methods("POST", "OPTIONS")
+	authRouter.HandleFunc("/userinfo", Chain(auth_controllers.GetUserInfoToken, Authentication(), Cors())).Methods("GET", "OPTIONS")
 	// r.HandleFunc("/get/", middlewares.Chain(GetAll, middlewares.Logging())).Methods("GET")
 	// db := database.Connect()
 

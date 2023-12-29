@@ -49,5 +49,24 @@ func GetUserByAccessToken(token string) (domain.UserResponse, error) {
 		return domain.UserResponse{}, err
 	}
 	return user, nil
+}
 
+func GetUserById(id int64) (domain.UserResponse, error) {
+	db := database.Connect()
+	defer db.Close()
+	var user domain.UserResponse
+	result := db.QueryRow(`SELECT users.id, users.username, users.email, users.created_at FROM users
+	WHERE users.id = ?
+	AND users.deleted_at IS NULL
+	`, id)
+	err := result.Scan(
+		&user.Id,
+		&user.Username,
+		&user.Email,
+		&user.Created_at,
+	)
+	if err != nil {
+		return domain.UserResponse{}, err
+	}
+	return user, nil
 }
