@@ -4,7 +4,6 @@ import (
 	"mime/multipart"
 	"server/v1/files/domain"
 	"server/v1/files/infrastructure"
-	auth_domain "server/v1/users/domain"
 	"strconv"
 	"time"
 )
@@ -41,11 +40,11 @@ func GetFileById(id int64) (domain.FileResponse, error) {
 	return infrastructure.GetFileById(id)
 }
 
-func GetAllFilesByUser(user auth_domain.UserResponse) ([]domain.FileResponse, error) {
-	return infrastructure.GetAllFiles(user.Id)
+func GetAllFilesByUser(id int64) ([]domain.FileResponse, error) {
+	return infrastructure.GetAllFiles(id)
 }
-func GetDeletedFiles(user auth_domain.UserResponse) ([]domain.FileResponse, error) {
-	return infrastructure.GetDeletedFiles(user.Id)
+func GetDeletedFiles(id int64) ([]domain.FileResponse, error) {
+	return infrastructure.GetDeletedFiles(id)
 }
 
 func DeleteFile(id int) error {

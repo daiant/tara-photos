@@ -44,7 +44,7 @@ func GetFileById(id int64) (domain.FileResponse, error) {
 func GetAllFiles(id int64) ([]domain.FileResponse, error) {
 	db := database.Connect()
 	defer db.Close()
-	rows, err := db.Query(`SELECT posts.id, posts.filename, thumbnails.filename AS thumbnail, posts.created_at 
+	rows, err := db.Query(`SELECT posts.id, posts.filename, thumbnails.filename AS thumbnail, posts.user_id, posts.created_at 
 		FROM posts 
 		LEFT JOIN thumbnails 
 		ON posts.id = thumbnails.post_id 
@@ -62,7 +62,7 @@ func GetAllFiles(id int64) ([]domain.FileResponse, error) {
 	var files []domain.FileResponse
 	for rows.Next() {
 		var file domain.FileResponse
-		if err := rows.Scan(&file.Id, &file.Filename, &file.Thumbnail, &file.Created_At); err != nil {
+		if err := rows.Scan(&file.Id, &file.Filename, &file.Thumbnail, &file.User_id, &file.Created_At); err != nil {
 			return files, err
 		}
 		files = append(files, file)

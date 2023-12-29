@@ -7,7 +7,6 @@ import (
 	"server/v1/files/application"
 	"server/v1/files/domain"
 	auth_application "server/v1/users/application"
-	auth_domain "server/v1/users/domain"
 	"strconv"
 	"strings"
 
@@ -15,7 +14,7 @@ import (
 )
 
 func CreateMultipleFiles(w http.ResponseWriter, r *http.Request) {
-	user, err := getUser(r)
+	id, err := getUser(r)
 	if err != nil {
 		fmt.Println(err)
 		http.Error(w, "Unknown error", http.StatusInternalServerError)
@@ -32,7 +31,7 @@ func CreateMultipleFiles(w http.ResponseWriter, r *http.Request) {
 		}
 		// Read data from f
 		defer f.Close()
-		id, responseErr := application.CreateFile(user.Id, f, fh)
+		id, responseErr := application.CreateFile(id, f, fh)
 		if responseErr != nil {
 			fmt.Println("Error: ", responseErr)
 			http.Error(w, "Something went wrong", http.StatusInternalServerError)
@@ -126,7 +125,7 @@ func DeleteFile(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintln(w, "Successo!")
 }
 
-func getUser(r *http.Request) (auth_domain.UserResponse, error) {
+func getUser(r *http.Request) (int64, error) {
 	token := strings.TrimPrefix(r.Header.Get("Authorization"), "Bearer ")
 	return auth_application.GetUserByToken(token)
 }

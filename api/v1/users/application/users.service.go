@@ -5,6 +5,8 @@ import (
 	"server/v1/users/domain"
 	"server/v1/users/infrastructure"
 	"time"
+
+	"github.com/golang-jwt/jwt"
 )
 
 func Register(username string, email string, password string) error {
@@ -28,8 +30,15 @@ func Login(email string, password string) (string, error) {
 	}
 	return token, err
 }
-func GetUserByToken(token string) (domain.UserResponse, error) {
-	return infrastructure.GetUserByAccessToken(token)
+func GetUserByToken(tokenString string) (int64, error) {
+	token, err := CheckToken(tokenString)
+	if err != nil {
+		return -1, err
+	}
+	if claims, ok := token.Claims.(jwt.MapClaims); ok {
+		return int64(claims["user"].(float64)), nil
+	}
+	return -1, nil
 }
 func GetTokenExists(token string) bool {
 	id, err := infrastructure.GetTokenId(token)
@@ -40,17 +49,19 @@ func GetTokenExists(token string) bool {
 	return id >= 0
 }
 func createToken(user_id int64) (string, error) {
+	jwtToken, err := GenerateToken(user_id)
+	if err != nil {
+		fmt.Println(err)
+		return "", err
+	}
 	token := domain.TokenAggregate{
 		User_id:    user_id,
-		Token:      generateRandomToken(),
+		Token:      jwtToken,
 		Created_at: time.Now().UnixMilli(),
 	}
-	err := infrastructure.GenerateToken(token)
-	if err != nil {
+	responseErr := infrastructure.GenerateToken(token)
+	if responseErr != nil {
 		return "", err
 	}
 	return token.Token, nil
-}
-func generateRandomToken() string {
-	return "uuuuuuquerandommmmmm"
 }
