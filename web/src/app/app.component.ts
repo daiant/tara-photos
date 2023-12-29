@@ -4,6 +4,7 @@ import { Router, RouterModule, RouterOutlet } from '@angular/router';
 
 import { ThumbnailComponent } from './components/thumbnail/thumbnail.component';
 import { ImageDetailsComponent } from './components/image-detail/image-detail.component';
+import { TokenService } from '../lib/token/token.service';
 
 @Component({
   selector: 'app-root',
@@ -12,20 +13,34 @@ import { ImageDetailsComponent } from './components/image-detail/image-detail.co
   templateUrl: './app.component.html',
 })
 export class AppComponent implements OnInit {
-
+  loading = true;
   router = inject(Router);
+  tokenService = inject(TokenService);
   ngOnInit(): void {
     const url = new URL(window.location.href).pathname;
     if (!url.includes("/login")) { this._checkToken() }
+    else this.loading = false;
   }
   _checkToken() {
-    const token = globalThis.localStorage.getItem("token");
+    const token = this.tokenService.getToken();
+    this.loading = false;
     if (!token) this.router.navigate(["/login"]);
   }
   get isLoggedIn() {
-    return globalThis.localStorage.getItem("token");
+    return this.tokenService.getToken();
   }
-  get user() {
-    return globalThis.localStorage.getItem("user")
+  get user(): string {
+    const idToken = this.tokenService.getItem("user")
+    if (!idToken) return ""
+    return this.getUserByToken(idToken)?.Username ?? ""
+  }
+  getUserByToken(token: string): { Username: string } | undefined {
+    const user_info = atob(token.split(".")[1])
+    try {
+      return JSON.parse(user_info);
+    } catch (error) {
+      console.log('👻 ~ getUserByToken ~ error:', error);
+      return undefined;
+    }
   }
 }

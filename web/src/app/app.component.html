@@ -1,10 +1,16 @@
-<header>
-  <ng-container *ngIf="isLoggedIn">
-    <nav>
-      <a routerLink="/">Tara photos</a>
-      <a routerLink="/trash">Papelera</a>
-      <p>Usuario: {{user}}</p>
-    </nav>
-  </ng-container>
-</header>
-<router-outlet></router-outlet>
+<ng-container *ngIf="loading">
+  <h1>loading....</h1>
+</ng-container>
+<ng-container *ngIf="!loading">
+  <header>
+    <ng-container *ngIf="isLoggedIn">
+      <nav>
+        <a routerLink="/">Tara photos</a> <a routerLink="/trash">Papelera</a>
+
+        <p>Usuario: {{user}}</p>
+        <a routerLink="/logout">Cerrar sesión</a>
+      </nav>
+    </ng-container>
+  </header>
+  <router-outlet></router-outlet>
+</ng-container>
