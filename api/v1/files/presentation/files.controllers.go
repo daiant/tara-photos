@@ -98,9 +98,15 @@ func GetFile(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(fileResponse)
 }
 func DownloadFile(w http.ResponseWriter, r *http.Request) {
+	user, err := getUser(r)
+	if err != nil {
+		fmt.Println(err)
+		http.Error(w, "Unknown error", http.StatusInternalServerError)
+		return
+	}
 	reqVars := mux.Vars(r)
 	filename := reqVars["file"]
-	http.ServeFile(w, r, domain.BUCKET+filename)
+	http.ServeFile(w, r, domain.BUCKET+strconv.Itoa(int(user))+"/"+filename)
 }
 func DownloadThumb(w http.ResponseWriter, r *http.Request) {
 	reqVars := mux.Vars(r)

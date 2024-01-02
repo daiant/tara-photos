@@ -18,7 +18,6 @@ func CreateTables() {
 	exec(db, `CREATE TABLE posts (
 		id INT PRIMARY KEY AUTO_INCREMENT,
 		filename TEXT NOT NULL,
-		tumbnail TEXT,
 		user_id INT,
 		created_at BIGINT NOT NULL,
 		deleted_at BIGINT,
