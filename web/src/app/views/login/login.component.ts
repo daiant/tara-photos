@@ -5,24 +5,22 @@ import { TokenService } from "../../../lib/token/token.service";
 
 @Component({
   selector: "tara-login",
-  template: `<h1>Login</h1><button (click)="setToken()">Set token</button>`
+  templateUrl: "./login.component.html"
 })
 export class LoginComponent {
   tokenService = inject(TokenService)
   userService = inject(UserService)
   router = inject(Router);
-  setToken() {
-    const formData = new FormData()
-    formData.append("email", "holaaaaa")
-    formData.append("password", "hehieiheieheih")
+  handleSubmit(event: SubmitEvent) {
+    event.preventDefault()
+    const formData = new FormData(event.target as HTMLFormElement);
     this.userService.login(formData).then(data => {
       if (!data) return;
       this.tokenService.persistToken(data);
       this.userService.getUserInfo().then(data => {
         this.tokenService.persistItem("user", data)
-      })
+      });
       this.router.navigate(["/"])
-    })
+    });
   }
-
 }
