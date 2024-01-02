@@ -1,9 +1,10 @@
 <div class="wrapper">
   <header>
-    <h1>{{file?.Filename}}</h1>
     <div class="actions">
       <button (click)="handleDeleteAlert()">Eliminar</button>
       <button (click)="handleClose()">Cerrar</button>
+      <button (click)="handlePrevious()">Go back</button>
+      <button (click)="handleNext()">Go next</button>
     </div>
   </header>
   <main>

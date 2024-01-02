@@ -10,7 +10,7 @@ func CreateDBEntry(fileEntity domain.File) (int64, error) {
 	db := database.Connect()
 	result, err := db.Exec(`
 		INSERT INTO posts (filename, user_id, created_at) VALUES (?, ?, ?)
-	`, fileEntity.Filename, fileEntity.User_id, fileEntity.Created_At)
+	`, fileEntity.Filename, fileEntity.User_id, fileEntity.Created_at)
 	if err != nil {
 		fmt.Println(err)
 		return -1, err
@@ -33,7 +33,7 @@ func GetFileById(id int64) (domain.FileResponse, error) {
 		AND posts.deleted_at IS NULL
 	`, id)
 	var file domain.FileResponse
-	if err := result.Scan(&file.Id, &file.Filename, &file.Thumbnail, &file.Created_At); err != nil {
+	if err := result.Scan(&file.Id, &file.Filename, &file.Thumbnail, &file.Created_at); err != nil {
 		fmt.Println(err)
 		return domain.FileResponse{}, err
 	}
@@ -62,7 +62,7 @@ func GetAllFiles(id int64) ([]domain.FileResponse, error) {
 	var files []domain.FileResponse
 	for rows.Next() {
 		var file domain.FileResponse
-		if err := rows.Scan(&file.Id, &file.Filename, &file.Thumbnail, &file.User_id, &file.Created_At); err != nil {
+		if err := rows.Scan(&file.Id, &file.Filename, &file.Thumbnail, &file.User_id, &file.Created_at); err != nil {
 			return files, err
 		}
 		files = append(files, file)
@@ -93,7 +93,7 @@ func GetDeletedFiles(id int64) ([]domain.FileResponse, error) {
 	var files []domain.FileResponse
 	for rows.Next() {
 		var file domain.FileResponse
-		if err := rows.Scan(&file.Id, &file.Filename, &file.Thumbnail, &file.User_id, &file.Created_At); err != nil {
+		if err := rows.Scan(&file.Id, &file.Filename, &file.Thumbnail, &file.User_id, &file.Created_at); err != nil {
 			return files, err
 		}
 		files = append(files, file)
@@ -107,6 +107,6 @@ func GetDeletedFiles(id int64) ([]domain.FileResponse, error) {
 func DeleteFileEntry(file domain.FileDelete) error {
 	db := database.Connect()
 	defer db.Close()
-	_, err := db.Exec(`UPDATE posts SET deleted_at = ? WHERE id = ?`, file.Deleted_At, file.Id)
+	_, err := db.Exec(`UPDATE posts SET deleted_at = ? WHERE id = ?`, file.Deleted_at, file.Id)
 	return err
 }

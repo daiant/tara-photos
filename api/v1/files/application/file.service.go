@@ -15,7 +15,7 @@ func CreateFile(user_id int64, file multipart.File, handler *multipart.FileHeade
 		Filename:   filename,
 		File:       file,
 		User_id:    user_id,
-		Created_At: date,
+		Created_at: date,
 	}
 	err := infrastructure.CreateFile(fileEntity)
 	if err != nil {
@@ -50,7 +50,7 @@ func GetDeletedFiles(id int64) ([]domain.FileResponse, error) {
 func DeleteFile(id int) error {
 	entity := domain.FileDelete{
 		Id:         id,
-		Deleted_At: time.Now().UnixMilli(),
+		Deleted_at: time.Now().UnixMilli(),
 	}
 	return infrastructure.DeleteFileEntry(entity)
 }

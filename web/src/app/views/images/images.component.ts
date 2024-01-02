@@ -25,11 +25,25 @@ export class ImagesComponent implements OnInit {
   ngOnInit() {
     this._updateFiles();
   }
-  async _updateFiles() {
-    this.files = await this.fileService.getAll()
+
+  parseDate(file: FileType): string {
+    return new Intl.DateTimeFormat("es", { day: "2-digit", month: "long", "year": "numeric" }).format(file.Created_at)
   }
-  getFile(filename: string): string {
-    return DOWNLOAD_URL + filename
+  isNewDate(index: number): boolean {
+    if (index <= 0) {
+      return true;
+    }
+    const currDate = new Date(this.files[index].Created_at);
+    const prevDate = new Date(this.files[index - 1].Created_at);
+    return currDate.getFullYear() != prevDate.getFullYear() ||
+      currDate.getMonth() != prevDate.getMonth() ||
+      currDate.getDate() != prevDate.getDate()
+  }
+
+  async _updateFiles() {
+    this.files = (await this.fileService.getAll()).sort((a, b) => {
+      return b.Created_at - a.Created_at
+    });
   }
   async handleSubmit(event: SubmitEvent) {
     event.preventDefault();
@@ -38,17 +52,24 @@ export class ImagesComponent implements OnInit {
     this._updateFiles();
     (event.target as HTMLFormElement).reset();
   }
-  setImgDetails(file: FileType) {
+  async handleImageDelete(file: FileType) {
+    await this.fileService.deleteFile(file.Id);
+    this.handleCloseDetails();
+    this._updateFiles();
+  }
+
+  handleChangeImage(direction: 1 | -1) {
+    const currentFileIndex = this.files.findIndex(f => f.Id === this.detailsFile?.Id);
+    if (Boolean(this.files[currentFileIndex + 1 * direction])) {
+      this.detailsFile = this.files[currentFileIndex + 1 * direction]
+    }
+  }
+  handleImgDetails(file: FileType) {
     this.detailsFile = file;
     this.detailsVisibility = true;
   }
   handleCloseDetails() {
     this.detailsFile = undefined;
     this.detailsVisibility = false;
-  }
-  async handleImageDelete(file: FileType) {
-    await this.fileService.deleteFile(file.Id);
-    this.handleCloseDetails();
-    this._updateFiles();
   }
 }

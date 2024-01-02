@@ -9,7 +9,7 @@ type File struct {
 	File       multipart.File
 	Filename   string
 	User_id    int64
-	Created_At int64
+	Created_at int64
 }
 
 type FileResponse struct {
@@ -17,10 +17,10 @@ type FileResponse struct {
 	Filename   string
 	Thumbnail  sql.NullString
 	User_id    int64
-	Created_At int64
+	Created_at int64
 }
 
 type FileDelete struct {
 	Id         int
-	Deleted_At int64
+	Deleted_at int64
 }

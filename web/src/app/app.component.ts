@@ -11,6 +11,7 @@ import { TokenService } from '../lib/token/token.service';
   standalone: true,
   imports: [CommonModule, RouterOutlet, RouterModule, ThumbnailComponent, ImageDetailsComponent],
   templateUrl: './app.component.html',
+  styleUrl: "./app.component.css"
 })
 export class AppComponent implements OnInit {
   loading = true;
@@ -43,4 +44,5 @@ export class AppComponent implements OnInit {
       return undefined;
     }
   }
+
 }

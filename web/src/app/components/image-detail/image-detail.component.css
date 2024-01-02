@@ -1,18 +1,41 @@
 .wrapper {
   position: fixed;
   z-index: 9;
-  background-color: lightblue;
-  border-radius: 16px;
+  background-color: black;
   border: darkgoldenrod;
-  inset: 16px;
-  padding: 16px;
+  inset: 0;
+}
+
+header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-inline: 8px;
+}
+
+header h1 {
+  flex: 1;
+}
+
+main {
+  display: grid;
+  place-content: center;
+  height: 100dvh;
+  width: 100%;
+  padding-inline: 8px;
 }
 
 img {
-  max-width: 80%;
-  height: auto;
   width: auto;
-  max-height: 80vh;
+  margin-inline: auto;
+  display: block;
+  max-width: 100%;
+  max-height: 100dvh;
 }
 
 .delete_alert {

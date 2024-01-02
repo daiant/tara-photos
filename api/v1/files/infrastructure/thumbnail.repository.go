@@ -10,7 +10,7 @@ func CreateThumbnailDBEntry(id int64, fileEntity domain.File) (int64, error) {
 	db := database.Connect()
 	result, err := db.Exec(`
 		INSERT INTO thumbnails (filename, post_id, created_at) VALUES (?, ?, ?)
-	`, fileEntity.Filename, id, fileEntity.Created_At)
+	`, fileEntity.Filename, id, fileEntity.Created_at)
 	if err != nil {
 		fmt.Println(err)
 		return -1, err

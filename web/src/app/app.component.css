@@ -1,0 +1,14 @@
+header nav {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  background-color: bisque;
+  padding: 8px;
+  gap: 8px;
+}
+
+
+main {
+  padding-inline: 8px;
+}

@@ -7,7 +7,7 @@ import { FileType } from "../../../lib/files/types/file.type";
 @Component({
   selector: "tara-image-thumbnail",
   template: `<img src={{src}} alt="" (click)="showDetails.emit(file)" />`,
-  styles: "img { width: auto; height: 300px; }",
+  styles: "img { width: auto; height: 300px; display: block; }",
   standalone: true,
   imports: [CommonModule, RouterOutlet],
 })

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, inject } from "@angular/core";
+import { Component, EventEmitter, Input, OnChanges, Output, inject } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterOutlet } from "@angular/router";
 import { FileType } from "../../../lib/files/types/file.type";
@@ -11,15 +11,16 @@ import { FileService } from "../../../lib/files/file.service";
   templateUrl: "./image-detail.component.html",
   styleUrls: ["./image-detail.component.css"],
 })
-export class ImageDetailsComponent implements OnInit {
+export class ImageDetailsComponent implements OnChanges {
   deleteAlertVisibility = false;
   src = '';
   fileService = inject(FileService);
   @Input() file?: FileType;
   @Output() onDelete = new EventEmitter<FileType>
   @Output() onClose = new EventEmitter<void>;
+  @Output() onChangeRequest = new EventEmitter<1 | -1>;
 
-  ngOnInit() {
+  ngOnChanges(): void {
     this.getFile();
   }
   async getFile() {
@@ -37,5 +38,11 @@ export class ImageDetailsComponent implements OnInit {
   }
   handleClose() {
     this.onClose.emit();
+  }
+  handlePrevious() {
+    this.onChangeRequest.emit(-1)
+  }
+  handleNext() {
+    this.onChangeRequest.emit(1)
   }
 }
