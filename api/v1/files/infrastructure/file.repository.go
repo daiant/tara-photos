@@ -4,13 +4,14 @@ import (
 	"fmt"
 	"server/database"
 	"server/v1/files/domain"
+	"strconv"
 )
 
 func CreateDBEntry(fileEntity domain.File) (int64, error) {
 	db := database.Connect()
 	result, err := db.Exec(`
 		INSERT INTO posts (filename, user_id, created_at) VALUES (?, ?, ?)
-	`, fileEntity.Filename, fileEntity.User_id, fileEntity.Created_At)
+	`, strconv.Itoa(int(fileEntity.User_id))+fileEntity.Filename, fileEntity.User_id, fileEntity.Created_At)
 	if err != nil {
 		fmt.Println(err)
 		return -1, err
