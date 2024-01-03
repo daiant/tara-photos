@@ -1,14 +1,33 @@
-header nav {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  align-items: center;
-  background-color: bisque;
-  padding: 8px;
-  gap: 8px;
+.barebones {
+  padding-inline: var(--spacing);
 }
 
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  max-height: 86px;
+  z-index: 1;
+}
+
+.template {
+  display: grid;
+  grid-template-columns: 1fr [main-start] 9fr [main-end];
+  column-gap: 8px;
+  position: relative;
+  padding-block-start: 86px;
+}
+
+.template aside {
+  grid-column: span 1;
+}
+
+.template main {
+  grid-column: main-start;
+}
 
 main {
-  padding-inline: 8px;
+  overflow-y: auto;
+  height: calc(100dvh - 86px);
 }

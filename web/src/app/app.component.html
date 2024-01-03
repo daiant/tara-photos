@@ -1,18 +1,17 @@
-<ng-container *ngIf="loading">
-  <h1>loading....</h1>
+<ng-container *ngIf="isLoggedIn; else barebones">
+  <tara-header class="header" />
+  <div class="template">
+    <aside class="aside_wrapper">
+      <tara-aside class="aside" />
+    </aside>
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+  </div>
 </ng-container>
-<ng-container *ngIf="!loading">
-  <header>
-    <ng-container *ngIf="isLoggedIn">
-      <nav>
-        <a routerLink="/">Tara photos</a> <a routerLink="/trash">Papelera</a>
 
-        <p>Usuario: {{user}}</p>
-        <a routerLink="/logout">Cerrar sesión</a>
-      </nav>
-    </ng-container>
-  </header>
-  <main>
+<ng-template #barebones>
+  <main class="barebones">
     <router-outlet></router-outlet>
   </main>
-</ng-container>
+</ng-template>

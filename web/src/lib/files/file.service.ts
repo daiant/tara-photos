@@ -1,10 +1,14 @@
-import { Injectable } from "@angular/core";
+import { EventEmitter, Injectable } from "@angular/core";
 import { FileType } from "./types/file.type";
 import { DELETE_URL, DOWNLOAD_URL, GET_DELETED_URL, GET_URL, POST_URL, THUMBNAIL_URL } from "./constants/file.constants";
 import { commonHeaders } from "../utils/headers/headers.utils";
+import { BehaviorSubject } from "rxjs";
 
 @Injectable({ providedIn: 'root' })
 export class FileService {
+  private _fileChanged = new BehaviorSubject<null>(null);
+  fileChanges$ = this._fileChanged.asObservable();
+
   async getById(id: number): Promise<FileType | null> {
     return await fetch(GET_URL + id, { headers: commonHeaders() }).then(response => response.ok ? response.json() : null).catch(error => {
       console.error(error);
@@ -43,11 +47,13 @@ export class FileService {
   }
   async uploadFiles(formData: FormData): Promise<void> {
     return await fetch(POST_URL, { method: "POST", body: formData, headers: commonHeaders() }).then(response => {
+      this._fileChanged.next(null);
       return;
     })
   }
   async deleteFile(id: number): Promise<void> {
     await fetch(DELETE_URL + id, { headers: commonHeaders() })
+    this._fileChanged.next(null);
     return;
   }
 }

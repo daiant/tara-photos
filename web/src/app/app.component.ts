@@ -5,13 +5,23 @@ import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { ThumbnailComponent } from './components/thumbnail/thumbnail.component';
 import { ImageDetailsComponent } from './components/image-detail/image-detail.component';
 import { TokenService } from '../lib/token/token.service';
+import { HeaderComponent } from './components/header/header.component';
+import { AsideComponent } from "./components/aside/aside.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterModule, ThumbnailComponent, ImageDetailsComponent],
   templateUrl: './app.component.html',
-  styleUrl: "./app.component.css"
+  styleUrl: "./app.component.css",
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    RouterModule,
+    ThumbnailComponent,
+    ImageDetailsComponent,
+    HeaderComponent,
+    AsideComponent,
+  ]
 })
 export class AppComponent implements OnInit {
   loading = true;
@@ -27,22 +37,7 @@ export class AppComponent implements OnInit {
     this.loading = false;
     if (!token) this.router.navigate(["/login"]);
   }
-  get isLoggedIn() {
-    return this.tokenService.getToken();
+  get isLoggedIn(): boolean {
+    return Boolean(this.tokenService.getToken());
   }
-  get user(): string {
-    const idToken = this.tokenService.getItem("user")
-    if (!idToken) return ""
-    return this.getUserByToken(idToken)?.Username ?? ""
-  }
-  getUserByToken(token: string): { Username: string } | undefined {
-    const user_info = atob(token.split(".")[1])
-    try {
-      return JSON.parse(user_info);
-    } catch (error) {
-      console.log('👻 ~ getUserByToken ~ error:', error);
-      return undefined;
-    }
-  }
-
 }

@@ -24,6 +24,7 @@ export class ImagesComponent implements OnInit {
 
   ngOnInit() {
     this._updateFiles();
+    this.fileService.fileChanges$.subscribe(() => this._updateFiles())
   }
 
   parseDate(file: FileType): string {
@@ -45,17 +46,10 @@ export class ImagesComponent implements OnInit {
       return b.Created_at - a.Created_at
     });
   }
-  async handleSubmit(event: SubmitEvent) {
-    event.preventDefault();
-    const form = new FormData(event.target as HTMLFormElement);
-    await this.fileService.uploadFiles(form);
-    this._updateFiles();
-    (event.target as HTMLFormElement).reset();
-  }
+
   async handleImageDelete(file: FileType) {
     await this.fileService.deleteFile(file.Id);
     this.handleCloseDetails();
-    this._updateFiles();
   }
 
   handleChangeImage(direction: 1 | -1) {
