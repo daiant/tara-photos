@@ -1,4 +1,7 @@
-<form (submit)="handleSubmit($event)">
-  <input type="file" name="file" id="file" multiple>
-  <button>Subir :)</button>
+<form>
+  <label for="file" class="custom-file-upload">
+    <span>Subir</span>
+    <img src="/assets/upload.svg" alt="Upload">
+  </label>
+  <input type="file" name="file" id="file" multiple (change)="triggerSubmit($event)">
 </form>

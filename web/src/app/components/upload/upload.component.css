@@ -1,0 +1,15 @@
+label {
+  cursor: pointer;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+label img {
+  width: 24px;
+  height: 24px;
+}
+
+input {
+  display: none;
+}

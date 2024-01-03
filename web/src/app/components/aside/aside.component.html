@@ -1,4 +1,11 @@
 <ul>
-  <li>Fotos</li>
-  <li>Papelera</li>
+  <a routerLink="/" [attr.aria-current]="isCurrentLink('/')">
+    <li>Fotos</li>
+  </a>
+  <a routerLink="/trash" [attr.aria-current]="isCurrentLink('/trash')">
+    <li>Papelera</li>
+  </a>
+  <a routerLink="/logout" [attr.aria-current]="false">
+    <li>Cerrar sesion</li>
+  </a>
 </ul>
