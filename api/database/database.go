@@ -9,7 +9,7 @@ import (
 
 func Connect() *sql.DB {
 	// Configure the database connection (always check errors)
-	db, err := sql.Open("mysql", "root:files@(127.0.0.1:33060)/files?parseTime=true")
+	db, err := sql.Open("mysql", "root:files@(mysql)/files?parseTime=true")
 	if err != nil {
 		log.Fatal("Error openning db connection: ", err)
 	}

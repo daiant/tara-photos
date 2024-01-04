@@ -34,8 +34,8 @@ func main() {
 	authRouter.HandleFunc("/login", Chain(auth_controllers.Login, Cors())).Methods("POST", "OPTIONS")
 	authRouter.HandleFunc("/userinfo", Chain(auth_controllers.GetUserInfoToken, Authentication(), Cors())).Methods("GET", "OPTIONS")
 
-	port := "80"
-	defer http.ListenAndServe("127.0.0.1:"+port, r)
+	port := "8080"
+	defer http.ListenAndServe("0.0.0.0:"+port, r)
 	db := database.Connect()
 	_, table_check := db.Query("select Count(*) from posts;")
 
