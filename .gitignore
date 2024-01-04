@@ -8,6 +8,7 @@
 
 # Bucket
 /bucket
+/db
 # Node
 /web/node_modules
 npm-debug.log
