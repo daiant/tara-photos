@@ -2,13 +2,14 @@ import { CommonModule } from "@angular/common";
 import { Component, inject } from "@angular/core";
 import { FileType } from "../../../lib/files/types/file.type";
 import { FileService } from "../../../lib/files/file.service";
+import { ButtonComponent } from "../button/button.component";
 
 @Component({
   selector: "tara-upload",
   templateUrl: "./upload.component.html",
   styleUrl: "./upload.component.css",
   standalone: true,
-  imports: [CommonModule]
+  imports: [CommonModule, ButtonComponent]
 })
 export class UploadComponent {
   triggerSubmit(event: Event) {
@@ -23,4 +24,5 @@ export class UploadComponent {
     await this.fileService.uploadFiles(formData);
     form.reset();
   }
+  handleClick: any;
 }

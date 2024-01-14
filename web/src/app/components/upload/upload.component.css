@@ -1,13 +1,13 @@
 label {
   cursor: pointer;
   display: flex;
-  gap: 8px;
+  gap: 4px;
   align-items: center;
 }
 
 label img {
-  width: 24px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
 }
 
 input {

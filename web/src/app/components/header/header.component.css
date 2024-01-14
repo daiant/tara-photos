@@ -1,18 +1,18 @@
 header {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
   align-items: center;
-  background-color: bisque;
-  padding: calc(var(--spacing) * 0.75) var(--spacing);
+  border-block-end: 1px solid;
+  display: flex;
   gap: 8px;
+  justify-content: space-between;
+  padding: calc(var(--spacing) * 0.75) var(--spacing);
+  width: 100%;
 }
 
 nav {
-  display: flex;
-  justify-content: flex-end;
   align-items: center;
+  display: flex;
   gap: var(--spacing);
+  justify-content: flex-end;
 }
 
 .title {

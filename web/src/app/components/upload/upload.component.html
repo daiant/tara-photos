@@ -1,7 +1,9 @@
 <form>
-  <label for="file" class="custom-file-upload">
-    <span>Subir</span>
-    <img src="/assets/upload.svg" alt="Upload">
-  </label>
+  <tara-button>
+    <label for="file" class="custom-file-upload">
+      <img src=" /assets/upload.svg" alt="Upload">
+      <span>Subir</span>
+    </label>
+  </tara-button>
   <input type="file" name="file" id="file" multiple (change)="triggerSubmit($event)">
 </form>

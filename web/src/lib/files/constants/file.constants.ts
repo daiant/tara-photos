@@ -1,4 +1,4 @@
-export const BASE_URL = "http://localhost:80/"
+export const BASE_URL = "http://localhost:8080/"
 export const GET_URL = BASE_URL + "get/";
 export const GET_DELETED_URL = BASE_URL + "get/trash";
 export const POST_URL = BASE_URL + "post";

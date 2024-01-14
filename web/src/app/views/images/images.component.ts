@@ -42,7 +42,7 @@ export class ImagesComponent implements OnInit {
   }
 
   async _updateFiles() {
-    this.files = (await this.fileService.getAll()).sort((a, b) => {
+    this.files = (await this.fileService.getAll())?.sort((a, b) => {
       return b.Created_at - a.Created_at
     });
   }
