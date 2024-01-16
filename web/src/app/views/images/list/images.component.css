@@ -3,7 +3,7 @@ ul {
   flex-wrap: wrap;
   gap: 4px;
   list-style: none;
-  padding: 0;
+  padding: 8px;
 
   h2 {
     width: 100%;
