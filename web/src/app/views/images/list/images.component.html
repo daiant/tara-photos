@@ -1,0 +1,6 @@
+<ul>
+  <ng-container *ngFor="let item of files; let i = index">
+    <h2 *ngIf="isNewDate(i)">{{parseDate(item)}}</h2>
+    <tara-image-thumbnail [file]="item" (showDetails)="handleImgDetails($event)"></tara-image-thumbnail>
+  </ng-container>
+</ul>

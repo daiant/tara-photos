@@ -12,19 +12,17 @@
 }
 
 .template {
-  display: grid;
-  grid-template-columns: 1fr [main-start] 9fr [main-end];
+  display: flex;
+  width: 100%;
   column-gap: var(--spacing);
   position: relative;
   padding-block-start: 86px;
 }
 
-.template aside {
-  grid-column: span 1;
-}
+.template aside {}
 
 .template main {
-  grid-column: main-start;
+  flex: 1;
 }
 
 main {

@@ -1,30 +1,33 @@
-import { Component, EventEmitter, Input, OnChanges, Output, inject } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output, inject } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { RouterOutlet } from "@angular/router";
-import { FileType } from "../../../lib/files/types/file.type";
-import { FileService } from "../../../lib/files/file.service";
+import { ActivatedRoute } from "@angular/router";
+import { FileType } from "../../../../lib/files/types/file.type";
+import { FileService } from "../../../../lib/files/file.service";
 
 @Component({
   selector: 'tara-image-details',
   standalone: true,
-  imports: [CommonModule, RouterOutlet],
-  templateUrl: "./image-detail.component.html",
-  styleUrls: ["./image-detail.component.css"],
+  imports: [CommonModule],
+  templateUrl: "./image-details.component.html",
+  styleUrls: ["./image-details.component.css"],
 })
-export class ImageDetailsComponent implements OnChanges {
+export class ImageDetailsComponent implements OnInit {
   deleteAlertVisibility = false;
   src = '';
+  route = inject(ActivatedRoute);
   fileService = inject(FileService);
   @Input() file?: FileType;
   @Output() onDelete = new EventEmitter<FileType>
   @Output() onClose = new EventEmitter<void>;
   @Output() onChangeRequest = new EventEmitter<1 | -1>;
 
-  ngOnChanges(): void {
-    this.getFile();
+  ngOnInit(): void {
+    const id = this.route.snapshot.params["id"];
+    if (!id) return;
+    this.getFile(id);
   }
-  async getFile() {
-    const blob = await this.fileService.getImage(this.file) as Blob | null;
+  async getFile(id: string) {
+    const blob = await this.fileService.getImage(id) as Blob | null;
     if (!blob) return;
     this.src = URL.createObjectURL(blob);
   }

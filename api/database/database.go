@@ -9,7 +9,9 @@ import (
 
 func Connect() *sql.DB {
 	// Configure the database connection (always check errors)
-	db, err := sql.Open("mysql", "root:files@(mysql)/files?parseTime=true")
+	// Local: 127.0.0.1:3306
+	// Docker (mysql)
+	db, err := sql.Open("mysql", "root:files@(127.0.0.1:3306)/files?parseTime=true")
 	if err != nil {
 		log.Fatal("Error openning db connection: ", err)
 	}

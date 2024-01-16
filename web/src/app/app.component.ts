@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
 
 import { ThumbnailComponent } from './components/thumbnail/thumbnail.component';
-import { ImageDetailsComponent } from './components/image-detail/image-detail.component';
+import { ImageDetailsComponent } from './views/images/details/image-details.component';
 import { TokenService } from '../lib/token/token.service';
 import { HeaderComponent } from './components/header/header.component';
 import { AsideComponent } from "./components/aside/aside.component";
@@ -18,7 +18,6 @@ import { AsideComponent } from "./components/aside/aside.component";
     RouterOutlet,
     RouterModule,
     ThumbnailComponent,
-    ImageDetailsComponent,
     HeaderComponent,
     AsideComponent,
   ]

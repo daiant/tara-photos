@@ -1,11 +1,10 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
-import { DOWNLOAD_URL } from '../../../lib/files/constants/file.constants';
-import { FileService } from '../../../lib/files/file.service';
-import { FileType } from '../../../lib/files/types/file.type';
-import { ImageDetailsComponent } from '../../components/image-detail/image-detail.component';
-import { ThumbnailComponent } from '../../components/thumbnail/thumbnail.component';
+import { Router, RouterOutlet } from '@angular/router';
+import { FileService } from '../../../../lib/files/file.service';
+import { FileType } from '../../../../lib/files/types/file.type';
+import { ImageDetailsComponent } from '../details/image-details.component';
+import { ThumbnailComponent } from '../../../components/thumbnail/thumbnail.component';
 
 @Component({
   selector: 'app-root',
@@ -47,23 +46,14 @@ export class ImagesComponent implements OnInit {
     });
   }
 
-  async handleImageDelete(file: FileType) {
-    await this.fileService.deleteFile(file.Id);
-    this.handleCloseDetails();
-  }
-
   handleChangeImage(direction: 1 | -1) {
     const currentFileIndex = this.files.findIndex(f => f.Id === this.detailsFile?.Id);
     if (Boolean(this.files[currentFileIndex + 1 * direction])) {
       this.detailsFile = this.files[currentFileIndex + 1 * direction]
     }
   }
+  router = inject(Router)
   handleImgDetails(file: FileType) {
-    this.detailsFile = file;
-    this.detailsVisibility = true;
-  }
-  handleCloseDetails() {
-    this.detailsFile = undefined;
-    this.detailsVisibility = false;
+    this.router.navigate(['photo', file.Id]);
   }
 }

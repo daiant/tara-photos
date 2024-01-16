@@ -24,6 +24,7 @@ func main() {
 	r.HandleFunc("/get/{id:[0-9]+}", Chain(files_controllers.GetFile, Authentication(), Cors())).Methods("GET", "OPTIONS")
 	r.HandleFunc("/get/all", Chain(files_controllers.GetAllFiles, Authentication(), Cors())).Methods("GET", "OPTIONS")
 	r.HandleFunc("/get/trash", Chain(files_controllers.GetDeletedFiles, Authentication(), Cors())).Methods("GET", "OPTIONS")
+	r.HandleFunc("/bucket/{id:[0-9]+}", Chain(files_controllers.DownloadFileById, Authentication(), Cors())).Methods("GET", "OPTIONS")
 	r.HandleFunc("/bucket/{file}", Chain(files_controllers.DownloadFile, Authentication(), Cors())).Methods("GET", "OPTIONS")
 	r.HandleFunc("/thumbs/{file}", Chain(files_controllers.DownloadThumb, Authentication(), Cors())).Methods("GET", "OPTIONS")
 	r.HandleFunc("/delete/{id:[0-9]+}", Chain(files_controllers.DeleteFile, Authentication(), Cors())).Methods("GET", "OPTIONS")

@@ -4,7 +4,7 @@ import { RouterModule, RouterOutlet } from "@angular/router";
 import { DOWNLOAD_URL } from "../../../lib/files/constants/file.constants";
 import { FileService } from "../../../lib/files/file.service";
 import { FileType } from "../../../lib/files/types/file.type";
-import { ImageDetailsComponent } from "../../components/image-detail/image-detail.component";
+import { ImageDetailsComponent } from "../images/details/image-details.component";
 import { ThumbnailComponent } from "../../components/thumbnail/thumbnail.component";
 
 @Component({

@@ -31,9 +31,8 @@ export class FileService {
       return null
     })
   }
-  async getImage(file: FileType | undefined) {
-    if (!file) return new Promise(resolve => resolve(null));
-    const url = DOWNLOAD_URL + file.Filename;
+  async getImage(filename: string) {
+    const url = DOWNLOAD_URL + filename;
     return await fetch(url, { headers: commonHeaders() }).then(response => response.ok ? response.blob() : null).catch(error => {
       console.log(error);
       return null

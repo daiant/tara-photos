@@ -21,8 +21,6 @@ li {
   gap: 24px;
   transition: background-color 100ms ease-in;
 
-
-
   &:hover {
     background-color: var(--primary-95);
   }

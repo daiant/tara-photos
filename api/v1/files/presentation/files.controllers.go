@@ -97,6 +97,28 @@ func GetFile(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusCreated)
 	json.NewEncoder(w).Encode(fileResponse)
 }
+func DownloadFileById(w http.ResponseWriter, r *http.Request) {
+	user, err := getUser(r)
+	if err != nil {
+		fmt.Println(err)
+		http.Error(w, "Unknown error", http.StatusInternalServerError)
+		return
+	}
+	reqVars := mux.Vars(r)
+	id,err :=strconv.Atoi(reqVars["id"])
+	if err != nil {
+		fmt.Println(err)
+		http.Error(w, "Unknown error", http.StatusInternalServerError)
+		return
+	}
+	response, err := application.GetFileById(int64(id))
+	if err != nil {
+		fmt.Println(err)
+		http.Error(w, "Unknown error", http.StatusInternalServerError)
+		return
+	}
+	http.ServeFile(w, r, domain.BUCKET+strconv.Itoa(int(user))+"/"+response.Filename)
+}
 func DownloadFile(w http.ResponseWriter, r *http.Request) {
 	user, err := getUser(r)
 	if err != nil {

@@ -4,10 +4,14 @@ import { Router, RouterLink } from "@angular/router";
 
 @Component({
   selector: 'tara-link',
-  template: `<a [routerLink]="href" (keydown.enter)="navigate($event)" (keydown.space)="navigate($event)"><ng-content></ng-content></a>`,
+  template: `<a [routerLink]="href" tabindex="0" (keydown.enter)="navigate($event)" (keydown.space)="navigate($event)"><ng-content></ng-content></a>`,
   styles: `a {
     color: var(--primary);
     text-decoration: none;
+    display: block;
+    &:focus {
+      outline: 2px solid var(--accent-fg);
+    }
   }`,
   standalone: true,
   imports: [CommonModule, RouterLink]
