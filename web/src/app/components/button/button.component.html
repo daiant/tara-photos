@@ -1,4 +1,4 @@
-<div role="button" (click)="click.emit()" [ngClass]="variant" tabindex="0" (keydown.enter)="click.emit()"
-  (keydown.space)="click.emit()">
+<div role="button" (click)="click.emit($event)" [ngClass]="variant" tabindex="0" (keydown.enter)="click.emit($event)"
+  (keydown.space)="click.emit($event)">
   <ng-content></ng-content>
 </div>

@@ -9,6 +9,6 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
   imports: [CommonModule],
 })
 export class ButtonComponent {
-  @Output() click = new EventEmitter<void>();
+  @Output() click = new EventEmitter<Event>();
   @Input() variant: 'primary' | 'secondary' = 'primary';
 }

@@ -1,9 +1,9 @@
 <form>
-  <tara-button (click)="inputFileElement.nativeElement.click()">
-    <label for="file" class="custom-file-upload" #label>
+  <tara-button (click)="openUpload($event)">
+    <label class="custom-file-upload">
       <img src=" /assets/upload.svg" alt="Upload">
       <span>Subir</span>
     </label>
   </tara-button>
-  <input type="file" name="file" id="file" multiple (change)="triggerSubmit($event)">
+  <input type="file" name="file" id="file" multiple (change)="triggerSubmit($event)" #label>
 </form>

@@ -12,10 +12,16 @@ import { ButtonComponent } from "../button/button.component";
   imports: [CommonModule, ButtonComponent]
 })
 export class UploadComponent {
+  openUpload($event: Event) {
+    $event.preventDefault();
+    this.inputFileElement.nativeElement.click()
+    $event.stopPropagation();
+  }
   @ViewChild('label') inputFileElement!: ElementRef<HTMLLabelElement>;
   triggerSubmit(event: Event) {
     const form = (event.target as HTMLInputElement).parentElement as HTMLFormElement;
     this.handleSubmit(form);
+    event.stopPropagation();
   }
   files: Array<FileType> = [];
   fileService = inject(FileService);
