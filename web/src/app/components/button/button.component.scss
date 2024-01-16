@@ -1,0 +1,30 @@
+:host {
+  --padding: 4px 8px;
+  --border-radius: 3px;
+
+  div[role="button"] {
+    --_active-color: var(--accent-bg);
+
+    user-select: none;
+    border-radius: var(--border-radius);
+    transition: background-color 100ms ease-in;
+    padding: var(--padding);
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--primary-95);
+    }
+
+    &:active {
+      background-color: var(--_active-color);
+    }
+
+    &:focus {
+      outline: 2px solid var(--accent-fg);
+    }
+
+    &.secondary {
+      --_active-color: var(--primary-80);
+    }
+  }
+}

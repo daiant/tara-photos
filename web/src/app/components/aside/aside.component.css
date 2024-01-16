@@ -5,15 +5,31 @@ ul {
   padding-block-start: var(--spacing);
 }
 
-a {
-  padding-inline-start: calc(var(--spacing) * 1.25);
+ul>*+* {
+  padding-block-start: 8px;
+  display: block;
+}
+
+li {
+  padding-inline: 16px;
   padding-block: calc(var(--spacing) * 0.5);
   border-top-right-radius: 32px;
   border-bottom-right-radius: 32px;
   text-decoration: none;
-  display: block;
-}
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  transition: background-color 100ms ease-in;
 
-a[aria-current="true"] {
-  background-color: #D2F4DF;
+
+
+  &:hover {
+    background-color: var(--primary-95);
+  }
+
+  &:active,
+  &[aria-current="true"] {
+    background-color: var(--accent-bg);
+    color: var(--accent-fg-darker, #6F582A);
+  }
 }

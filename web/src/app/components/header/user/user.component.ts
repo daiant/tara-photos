@@ -1,13 +1,14 @@
 import { CommonModule } from "@angular/common";
 import { Component, Input, inject } from "@angular/core";
 import { TokenService } from "../../../../lib/token/token.service";
+import { ButtonComponent } from "../../button/button.component";
 
 @Component({
   selector: "tara-header-user",
   templateUrl: "./user.component.html",
   styleUrl: "./user.component.css",
   standalone: true,
-  imports: [CommonModule]
+  imports: [CommonModule, ButtonComponent]
 })
 export class HeaderUserComponent {
   tokenService = inject(TokenService);

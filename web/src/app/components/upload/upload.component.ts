@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, inject } from "@angular/core";
+import { Component, ElementRef, ViewChild, inject } from "@angular/core";
 import { FileType } from "../../../lib/files/types/file.type";
 import { FileService } from "../../../lib/files/file.service";
 import { ButtonComponent } from "../button/button.component";
@@ -12,6 +12,7 @@ import { ButtonComponent } from "../button/button.component";
   imports: [CommonModule, ButtonComponent]
 })
 export class UploadComponent {
+  @ViewChild('label') inputFileElement!: ElementRef<HTMLLabelElement>;
   triggerSubmit(event: Event) {
     const form = (event.target as HTMLInputElement).parentElement as HTMLFormElement;
     this.handleSubmit(form);
@@ -24,5 +25,4 @@ export class UploadComponent {
     await this.fileService.uploadFiles(formData);
     form.reset();
   }
-  handleClick: any;
 }

@@ -1,6 +1,6 @@
 <form>
-  <tara-button>
-    <label for="file" class="custom-file-upload">
+  <tara-button (click)="inputFileElement.nativeElement.click()">
+    <label for="file" class="custom-file-upload" #label>
       <img src=" /assets/upload.svg" alt="Upload">
       <span>Subir</span>
     </label>
