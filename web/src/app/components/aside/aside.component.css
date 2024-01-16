@@ -10,6 +10,11 @@ ul>*+* {
   display: block;
 }
 
+tara-link::ng-deep a {
+  border-top-right-radius: 32px;
+  border-bottom-right-radius: 32px;
+}
+
 li {
   padding-inline: 16px;
   padding-block: calc(var(--spacing) * 0.5);
