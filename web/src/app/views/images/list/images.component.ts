@@ -5,13 +5,14 @@ import { FileService } from '../../../../lib/files/file.service';
 import { FileType } from '../../../../lib/files/types/file.type';
 import { ImageDetailsComponent } from '../details/image-details.component';
 import { ThumbnailComponent } from '../../../components/thumbnail/thumbnail.component';
+import { TimeHeader } from "../../../components/time/time.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, ThumbnailComponent, ImageDetailsComponent],
   templateUrl: './images.component.html',
-  styleUrl: './images.component.css'
+  styleUrl: './images.component.css',
+  imports: [CommonModule, RouterOutlet, ThumbnailComponent, ImageDetailsComponent, TimeHeader]
 })
 export class ImagesComponent implements OnInit {
 
