@@ -1,0 +1,45 @@
+h2 {
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+
+  &:hover [role="button"] {
+    flex-basis: 32px;
+
+    & img {
+      opacity: 1;
+      transition-delay: 100ms;
+    }
+  }
+
+}
+
+[role="button"] {
+  width: 32px;
+  height: 32px;
+  flex-basis: 0;
+  min-width: 0;
+  display: grid;
+  place-content: center;
+  overflow: hidden;
+  transition: flex-basis 100ms ease, background-color 100ms ease;
+  cursor: pointer;
+  border-radius: 100%;
+
+  &:hover {
+    background-color: var(--primary-80);
+  }
+
+  &:active,
+  [aria-selected="true"] {
+    background-color: var(--accent-bg);
+  }
+
+  & img {
+    opacity: 0;
+    transition: opacity 250ms ease;
+    width: 24px;
+  }
+}
