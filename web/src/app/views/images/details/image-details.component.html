@@ -1,21 +1,16 @@
 <div class="wrapper">
-  <header>
-    <div class="actions">
-      <button (click)="handleDeleteAlert()">Eliminar</button>
-      <button (click)="handleClose()">Cerrar</button>
-      <button (click)="handlePrevious()">Go back</button>
-      <button (click)="handleNext()">Go next</button>
-    </div>
-  </header>
+  <tara-image-details-header (onClose)="handleClose($event)" (onDownload)="handleDownload($event)"
+    (onDelete)="handleDeleteAlert($event)" />
   <main>
-    <img src={{src}} alt="">
+    <tara-button [round]="true" theme="dark" class="left" (click)="handlePrevious($event)">
+      <img src="/assets/caret-left.svg" alt="previous" />
+    </tara-button>
+    <img src={{src}} alt="" class="image">
+    <tara-button [round]="true" theme="dark" class="right" (click)="handleNext($event)">
+      <img src="/assets/caret-right.svg" alt="next" />
+    </tara-button>
   </main>
   <footer></footer>
 </div>
-<div class="delete_alert" *ngIf="deleteAlertVisibility">
-  <header>Cuidado! Borrar??</header>
-  <div class="actions">
-    <button (click)="deleteAlertVisibility = false;">Cancelar</button>
-    <button (click)="handleDelete()">Borrar</button>
-  </div>
-</div>
+<tara-image-delete-dialog [visible]="isDialogVisible" (onCancel)="isDialogVisible = false"
+  (onConfirm)="handleDelete($event)" />

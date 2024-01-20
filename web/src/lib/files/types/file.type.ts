@@ -1,4 +1,4 @@
-export type FileType = {
+export type FileMetadata = {
   Id: number;
   Filename: string;
   Thumbnail: FileThumbnailType;

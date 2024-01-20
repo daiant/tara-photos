@@ -1,4 +1,4 @@
-<div role="button" (click)="click.emit($event)" [ngClass]="variant" tabindex="0" (keydown.enter)="click.emit($event)"
-  (keydown.space)="click.emit($event)">
+<div role="button" (click)="click.emit($event)" [ngClass]="[variant, theme, round ? 'round' : '']" tabindex="0"
+  (keydown.enter)="click.emit($event)" (keydown.space)="click.emit($event)">
   <ng-content></ng-content>
 </div>

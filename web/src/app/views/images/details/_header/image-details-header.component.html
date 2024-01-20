@@ -1,0 +1,13 @@
+<header>
+  <tara-button (click)="onClose.emit($event)" [round]="true" theme="dark">
+    <img src="/assets/back.svg" alt="Volver atrás">
+  </tara-button>
+  <div class="actions">
+    <tara-button (click)="onDownload.emit($event)" [round]="true" theme="dark">
+      <img src="/assets/download.svg" alt="Descargar">
+    </tara-button>
+    <tara-button (click)="onDelete.emit($event)" [round]="true" theme="dark">
+      <img src="/assets/trash.svg" alt="Delete">
+    </tara-button>
+  </div>
+</header>

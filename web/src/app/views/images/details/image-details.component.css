@@ -6,21 +6,7 @@
   inset: 0;
 }
 
-header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  padding-inline: 8px;
-}
 
-header h1 {
-  flex: 1;
-}
 
 main {
   display: grid;
@@ -28,9 +14,10 @@ main {
   height: 100dvh;
   width: 100%;
   padding-inline: 8px;
+  position: relative;
 }
 
-img {
+main .image {
   width: auto;
   margin-inline: auto;
   display: block;
@@ -38,16 +25,20 @@ img {
   max-height: 100dvh;
 }
 
-.delete_alert {
-  position: fixed;
-  min-width: min(100%, 300px);
-  min-height: 300px;
+main tara-button {
+  position: absolute;
   top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 10;
-  background-color: cadetblue;
-  border-radius: 8px;
-  display: grid;
-  place-content: center;
+  transform: translateY(-50%);
+
+  & img {
+    filter: invert(1);
+  }
+}
+
+main tara-button.left {
+  left: 16px;
+}
+
+main tara-button.right {
+  right: 16px;
 }

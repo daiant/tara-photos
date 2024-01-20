@@ -3,7 +3,7 @@ import { Component, inject } from "@angular/core";
 import { RouterModule, RouterOutlet } from "@angular/router";
 import { DOWNLOAD_URL } from "../../../lib/files/constants/file.constants";
 import { FileService } from "../../../lib/files/file.service";
-import { FileType } from "../../../lib/files/types/file.type";
+import { FileMetadata } from "../../../lib/files/types/file.type";
 import { ImageDetailsComponent } from "../images/details/image-details.component";
 import { ThumbnailComponent } from "../../components/thumbnail/thumbnail.component";
 
@@ -18,9 +18,9 @@ export class TrashComponent {
 
   fileService = inject(FileService);
   title = 'Tara Photos';
-  files: Array<FileType> = [];
+  files: Array<FileMetadata> = [];
   detailsVisibility = false;
-  detailsFile: FileType | undefined;
+  detailsFile: FileMetadata | undefined;
 
   ngOnInit() {
     this._updateFiles();
@@ -38,7 +38,7 @@ export class TrashComponent {
     this._updateFiles();
     (event.target as HTMLFormElement).reset();
   }
-  setImgDetails(file: FileType) {
+  setImgDetails(file: FileMetadata) {
     this.detailsFile = file;
     this.detailsVisibility = true;
   }
@@ -46,7 +46,7 @@ export class TrashComponent {
     this.detailsFile = undefined;
     this.detailsVisibility = false;
   }
-  async handleImageDelete(file: FileType) {
+  async handleImageDelete(file: FileMetadata) {
     await this.fileService.deleteFile(file.Id);
     this.handleCloseDetails();
     this._updateFiles();

@@ -1,0 +1,30 @@
+header,
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: white;
+  width: 100%;
+  padding: 8px;
+  z-index: 2;
+}
+
+header h1 {
+  flex: 1;
+}
+
+tara-button {
+  --width: 36px;
+
+  img {
+    width: 24px;
+    filter: invert(1);
+  }
+}

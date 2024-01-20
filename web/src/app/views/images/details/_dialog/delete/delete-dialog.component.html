@@ -1,0 +1,10 @@
+<div class="wrapper" [attr.aria-hidden]="!visible" (click)="onCancel.emit($event)">
+
+  <div class="delete_alert">
+    <h2>Cuidado! Borrar??</h2>
+    <div class="actions">
+      <tara-button (click)="onCancel.emit($event)">Cancelar</tara-button>
+      <tara-button (click)="onConfirm.emit($event)" variant="primary">Mover a la papelera</tara-button>
+    </div>
+  </div>
+</div>

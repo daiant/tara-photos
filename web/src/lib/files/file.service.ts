@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable } from "@angular/core";
-import { FileType } from "./types/file.type";
+import { FileMetadata } from "./types/file.type";
 import { DELETE_URL, DOWNLOAD_URL, GET_DELETED_URL, GET_URL, POST_URL, THUMBNAIL_URL } from "./constants/file.constants";
 import { commonHeaders } from "../utils/headers/headers.utils";
 import { BehaviorSubject } from "rxjs";
@@ -9,19 +9,19 @@ export class FileService {
   private _fileChanged = new BehaviorSubject<null>(null);
   fileChanges$ = this._fileChanged.asObservable();
 
-  async getById(id: number): Promise<FileType | null> {
+  async getById(id: number): Promise<FileMetadata | null> {
     return await fetch(GET_URL + id, { headers: commonHeaders() }).then(response => response.ok ? response.json() : null).catch(error => {
       console.error(error);
       return null
     })
   }
-  async getAll(): Promise<FileType[]> {
+  async getAll(): Promise<FileMetadata[]> {
     return await fetch(GET_URL + "all", { headers: commonHeaders() }).then(response => response.ok ? response.json() : []).catch(error => {
       console.log(error);
       return []
     });
   }
-  async getThumbnail(file: FileType | undefined) {
+  async getThumbnail(file: FileMetadata | undefined) {
     if (!file) return new Promise(resolve => resolve(null));
     const url = file.Thumbnail.Valid ?
       THUMBNAIL_URL + file.Thumbnail.String :
@@ -38,7 +38,7 @@ export class FileService {
       return null
     })
   }
-  async getDeleted(): Promise<FileType[]> {
+  async getDeleted(): Promise<FileMetadata[]> {
     return await fetch(GET_DELETED_URL, { headers: commonHeaders() }).then(response => response.ok ? response.json() : []).catch(error => {
       console.log(error);
       return []

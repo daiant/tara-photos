@@ -1,4 +1,5 @@
 :host {
+  --width: initial;
   --padding: 4px 8px;
   --border-radius: 3px;
 
@@ -9,7 +10,10 @@
     border-radius: var(--border-radius);
     transition: background-color 100ms ease-in;
     padding: var(--padding);
+    width: var(--width);
     cursor: pointer;
+    display: grid;
+    place-content: center;
 
     &:hover {
       background-color: var(--primary-95);
@@ -25,6 +29,26 @@
 
     &.secondary {
       --_active-color: var(--primary-80);
+    }
+
+    &.primary {
+      background-color: var(--accent-bg);
+    }
+
+    &.round {
+      --border-radius: 100%;
+      aspect-ratio: 1;
+      --padding: 4px;
+    }
+
+    &.dark {
+      &:hover {
+        background-color: var(--primary-10);
+      }
+
+      &:active {
+        background-color: var(--primary);
+      }
     }
   }
 }

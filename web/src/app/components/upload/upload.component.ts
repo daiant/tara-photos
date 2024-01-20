@@ -1,6 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { Component, ElementRef, ViewChild, inject } from "@angular/core";
-import { FileType } from "../../../lib/files/types/file.type";
+import { FileMetadata } from "../../../lib/files/types/file.type";
 import { FileService } from "../../../lib/files/file.service";
 import { ButtonComponent } from "../button/button.component";
 
@@ -23,7 +23,7 @@ export class UploadComponent {
     this.handleSubmit(form);
     event.stopPropagation();
   }
-  files: Array<FileType> = [];
+  files: Array<FileMetadata> = [];
   fileService = inject(FileService);
 
   async handleSubmit(form: HTMLFormElement) {

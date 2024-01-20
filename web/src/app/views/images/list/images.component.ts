@@ -2,7 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterOutlet } from '@angular/router';
 import { FileService } from '../../../../lib/files/file.service';
-import { FileType } from '../../../../lib/files/types/file.type';
+import { FileMetadata } from '../../../../lib/files/types/file.type';
 import { ImageDetailsComponent } from '../details/image-details.component';
 import { ThumbnailComponent } from '../../../components/thumbnail/thumbnail.component';
 import { TimeHeader } from "../../../components/time/time.component";
@@ -18,16 +18,16 @@ export class ImagesComponent implements OnInit {
 
   fileService = inject(FileService);
   title = 'Tara Photos';
-  files: Array<FileType> = [];
+  files: Array<FileMetadata> = [];
   detailsVisibility = false;
-  detailsFile: FileType | undefined;
+  detailsFile: FileMetadata | undefined;
 
   ngOnInit() {
     this._updateFiles();
     this.fileService.fileChanges$.subscribe(() => this._updateFiles())
   }
 
-  parseDate(file: FileType): string {
+  parseDate(file: FileMetadata): string {
     return new Intl.DateTimeFormat("es", { day: "2-digit", month: "long", "year": "numeric" }).format(file.Created_at)
   }
   isNewDate(index: number): boolean {
@@ -42,9 +42,7 @@ export class ImagesComponent implements OnInit {
   }
 
   async _updateFiles() {
-    this.files = (await this.fileService.getAll())?.sort((a, b) => {
-      return b.Created_at - a.Created_at
-    });
+    this.files = (await this.fileService.getAll());
   }
 
   handleChangeImage(direction: 1 | -1) {
@@ -54,7 +52,7 @@ export class ImagesComponent implements OnInit {
     }
   }
   router = inject(Router)
-  handleImgDetails(file: FileType) {
+  handleImgDetails(file: FileMetadata) {
     this.router.navigate(['photo', file.Id]);
   }
 }

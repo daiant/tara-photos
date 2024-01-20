@@ -10,5 +10,7 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
 })
 export class ButtonComponent {
   @Output() click = new EventEmitter<Event>();
-  @Input() variant: 'primary' | 'secondary' = 'primary';
+  @Input() variant: 'primary' | 'secondary' = 'secondary';
+  @Input() round?: boolean;
+  @Input() theme: 'light' | 'dark' = 'light';
 }

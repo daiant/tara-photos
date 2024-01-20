@@ -2,7 +2,7 @@ import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, 
 import { FileService } from "../../../lib/files/file.service";
 import { CommonModule } from "@angular/common";
 import { RouterOutlet } from "@angular/router";
-import { FileType } from "../../../lib/files/types/file.type";
+import { FileMetadata } from "../../../lib/files/types/file.type";
 
 @Component({
   selector: "tara-image-thumbnail",
@@ -14,8 +14,8 @@ import { FileType } from "../../../lib/files/types/file.type";
 export class ThumbnailComponent implements OnInit {
   fileService = inject(FileService);
   src = "";
-  @Input() file?: FileType;
-  @Output() showDetails = new EventEmitter<FileType>;
+  @Input() file?: FileMetadata;
+  @Output() showDetails = new EventEmitter<FileMetadata>;
   ngOnInit() {
     this.getFile()
   }

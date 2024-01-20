@@ -1,0 +1,44 @@
+.wrapper {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0 0 0 / 0.45);
+  z-index: 10;
+  transition: opacity 300ms ease;
+  display: grid;
+  place-content: center;
+
+  &[aria-hidden="true"] {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+.delete_alert {
+  min-width: min(100%, 300px);
+  min-height: 300px;
+  background-color: var(--primary-95);
+  border-radius: 8px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+h2 {
+  font-weight: 500;
+  font-size: 20px;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+
+  & tara-button {
+    white-space: nowrap;
+    --width: fit-content;
+    --padding: 6px 12px;
+  }
+}

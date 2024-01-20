@@ -8,6 +8,7 @@ body {
   --primary: #43413D;
   --primary-95: #F3F2F2;
   --primary-80: #CECDCA;
+  --primary-10: hsl(45, 4%, 10%);
   --text-title: 24px;
   color: var(--primary);
   font-family: "Inter", "sans-serif";
