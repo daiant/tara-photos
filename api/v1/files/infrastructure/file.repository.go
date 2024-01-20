@@ -53,6 +53,7 @@ func GetAllFiles(id int64) ([]domain.FileResponse, error) {
 		WHERE posts.user_id = ? 
 		AND posts.deleted_at IS NULL
 		AND users.deleted_at IS NULL
+		ORDER BY posts.created_at DESC
 	`, id)
 	if err != nil {
 		return nil, err
