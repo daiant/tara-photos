@@ -9,7 +9,7 @@ COPY package.json package-lock.json ./
 RUN npm ci
 
 COPY . .
-CMD ["ng", "serve", "--host", "0.0.0.0"]
+CMD ["ng", "serve", "--host", "0.0.0.0", "--poll", "500"]
 
 FROM builder as dev-envs
 

@@ -29,6 +29,8 @@ services:
       MYSQL_USER: files
       MYSQL_PASSWORD: files
       MYSQL_DATABASE: files
+      BUCKET_DIR: /app/bucket/
+      THUMBS_DIR: /app/bucket/thumbs/
     volumes:
       - .:/app
     networks:
