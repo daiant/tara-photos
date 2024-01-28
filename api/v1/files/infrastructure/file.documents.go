@@ -13,8 +13,7 @@ import (
 func GetFilePath(fileEntity domain.File) string {
 	return domain.BUCKET + strconv.Itoa(int(fileEntity.User_id)) + "/" + fileEntity.Filename
 }
-func CheckAndCreateFolder(user_id int64) error {
-	path := domain.BUCKET + strconv.Itoa(int(user_id))
+func CheckAndCreateBaseFolder(path string) error {
 	if _, err := os.Stat(path); err != nil {
 		if os.IsNotExist(err) {
 			// file does not exist
@@ -25,6 +24,14 @@ func CheckAndCreateFolder(user_id int64) error {
 		}
 	}
 	return nil
+}
+func CheckAndCreateThumbnail() error {
+	path := domain.THUMBNAIL
+	return CheckAndCreateBaseFolder(path)
+}
+func CheckAndCreateFolder(user_id int64) error {
+	path := domain.BUCKET + strconv.Itoa(int(user_id))
+	return CheckAndCreateBaseFolder(path)
 }
 func CreateFile(fileEntity domain.File) error {
 	fmt.Println("Create file with name: " + fileEntity.Filename)
@@ -53,6 +60,10 @@ func CreateFile(fileEntity domain.File) error {
 }
 
 func CreateThumbnail(fileEntity domain.File) error {
+	err := CheckAndCreateThumbnail()
+	if err != nil {
+		return err
+	}
 	fmt.Println("Create thumbnail for file: " + fileEntity.Filename)
 	var config = thumbnail.Generator{
 		DestinationPath:   "",

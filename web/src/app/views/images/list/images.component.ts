@@ -42,14 +42,9 @@ export class ImagesComponent implements OnInit {
   }
 
   async _updateFiles() {
-    this.files = (await this.fileService.getAll());
-  }
-
-  handleChangeImage(direction: 1 | -1) {
-    const currentFileIndex = this.files.findIndex(f => f.Id === this.detailsFile?.Id);
-    if (Boolean(this.files[currentFileIndex + 1 * direction])) {
-      this.detailsFile = this.files[currentFileIndex + 1 * direction]
-    }
+    this.files = (await this.fileService.getAll())?.sort((a, b) => {
+      return b.Created_at - a.Created_at
+    });
   }
   router = inject(Router)
   handleImgDetails(file: FileMetadata) {

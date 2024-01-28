@@ -1,4 +1,6 @@
 package domain
 
-var BUCKET = "../bucket/"
-var THUMBNAIL = BUCKET + "thumbs/"
+import "os"
+
+var BUCKET = os.Getenv("BUCKET_DIR")
+var THUMBNAIL = os.Getenv("THUMBS_DIR")
