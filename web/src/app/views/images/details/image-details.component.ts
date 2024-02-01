@@ -27,7 +27,6 @@ export class ImageDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      console.log(params)
       const id = params["id"]
       if (!id) return;
       this.getFile(id);

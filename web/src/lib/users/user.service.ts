@@ -6,13 +6,13 @@ import { commonHeaders } from "../utils/headers/headers.utils";
 export class UserService {
   async login(formData: FormData): Promise<string> {
     return await fetch(LOGIN_URL, { method: "POST", body: formData }).then(response => response.ok ? response.text() : "").catch(error => {
-      console.log(error);
+      console.error(error);
       return ""
     })
   }
   async getUserInfo() {
     return await fetch(USER_INFO_URL, { headers: commonHeaders() }).then(response => response.ok ? response.text() : "").catch(error => {
-      console.log(error);
+      console.error(error);
       return ""
     })
   }

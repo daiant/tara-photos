@@ -92,7 +92,7 @@ func GetFile(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintln(w, "Error getting image", http.StatusInternalServerError)
 		return
 	}
-	fmt.Println(fileResponse)
+	fmt.Printf("\nRequested file: %v, response: %v\n", idInt, fileResponse);
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
 	json.NewEncoder(w).Encode(fileResponse)
@@ -133,7 +133,6 @@ func DownloadFile(w http.ResponseWriter, r *http.Request) {
 func DownloadThumb(w http.ResponseWriter, r *http.Request) {
 	reqVars := mux.Vars(r)
 	filename := reqVars["file"]
-	fmt.Println(filename)
 	http.ServeFile(w, r, domain.THUMBNAIL+filename)
 }
 

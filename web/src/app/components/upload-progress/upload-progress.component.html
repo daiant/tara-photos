@@ -1,0 +1,6 @@
+<div class="popup" [attr.aria-hidden]="!visible">
+  <h3>Subiendo</h3>
+  <ul>
+    <tara-upload-progress-item *ngFor="let file of files" [file]="file" />
+  </ul>
+</div>
