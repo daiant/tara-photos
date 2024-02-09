@@ -1,0 +1,25 @@
+li {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  border-radius: 4px;
+  padding: 8px;
+  border: 1px solid transparent;
+  transition: border-color 200ms ease;
+}
+
+li:hover {
+  border-color: var(--primary-95);
+  cursor: default;
+}
+
+li img {
+  width: 32px;
+  height: 32px;
+  object-fit: cover;
+  border-radius: 100%;
+}
+
+.info {
+  margin-inline-start: auto;
+}
