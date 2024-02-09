@@ -1,7 +1,3 @@
-.barebones {
-  padding-inline: var(--spacing);
-}
-
 .header {
   position: fixed;
   top: 0;
@@ -25,7 +21,7 @@
   flex: 1;
 }
 
-main {
+main:not(.barebones) {
   overflow-y: auto;
   height: calc(100dvh - 86px);
 }
