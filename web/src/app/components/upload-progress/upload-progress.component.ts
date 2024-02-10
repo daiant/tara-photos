@@ -15,5 +15,9 @@ export class UploadProgressComponent {
     return 2;
   }
   @Input() visible?: boolean = true;
-  @Input() files?: File[];
+  files?: File[] = [{
+    name: 'pipoadf adofa dasf asd fasod fa.mp4',
+    size: 0,
+    lastModified: new Date().getTime(),
+  } as File];
 }

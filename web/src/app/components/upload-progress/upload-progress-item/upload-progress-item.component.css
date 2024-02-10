@@ -6,6 +6,7 @@ li {
   padding: 8px;
   border: 1px solid transparent;
   transition: border-color 200ms ease;
+  flex-wrap: wrap;
 }
 
 li:hover {
@@ -20,6 +21,6 @@ li img {
   border-radius: 100%;
 }
 
-.info {
-  margin-inline-start: auto;
+li span {
+  flex-grow: 1;
 }
