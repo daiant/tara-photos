@@ -1,12 +1,14 @@
 ul {
-  display: flex;
-  flex-wrap: wrap;
+  /* display: flex;
+  flex-wrap: wrap; */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 4px;
   list-style: none;
   padding: 8px;
 
   tara-time-header {
-    width: 100%;
+    grid-column: 1 / -1;
   }
 }
 
