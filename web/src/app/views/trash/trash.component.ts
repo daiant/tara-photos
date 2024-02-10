@@ -6,15 +6,22 @@ import { FileService } from "../../../lib/files/file.service";
 import { FileMetadata } from "../../../lib/files/types/file.type";
 import { ImageDetailsComponent } from "../images/details/image-details.component";
 import { ThumbnailComponent } from "../../components/thumbnail/thumbnail.component";
+import { TimeHeader } from "../../components/time/time.component";
 
 @Component({
   selector: "tara-trash",
   standalone: true,
-  imports: [CommonModule, RouterModule, RouterOutlet, ThumbnailComponent, ImageDetailsComponent],
   templateUrl: './trash.component.html',
   styleUrl: './trash.component.css',
+  imports: [CommonModule, RouterModule, RouterOutlet, ThumbnailComponent, ImageDetailsComponent, TimeHeader]
 })
 export class TrashComponent {
+  handleImgDetails($event: FileMetadata) {
+    throw new Error('Method not implemented.');
+  }
+  isNewDate(arg0: any): any {
+    throw new Error('Method not implemented.');
+  }
 
   fileService = inject(FileService);
   title = 'Tara Photos';

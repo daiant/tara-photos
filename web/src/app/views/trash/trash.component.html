@@ -1,15 +1,8 @@
 <h1>Trash</h1>
-<ul style="display: flex; flex-wrap: wrap; gap: 4px; list-style: none; padding: 0;">
-  @defer {
-  <tara-image-thumbnail *ngFor="let item of files" [file]="item"
-    (showDetails)="setImgDetails($event)"></tara-image-thumbnail>
-  } @placeholder {
-  <p>image</p>
-  } @loading {
-  <p>Loading...</p>
-  }
+<ul>
+  <!-- <ng-container *ngFor="let item  of files; let i = index">
+    <tara-time-header *ngIf=" isNewDate(i)" [date]="item.Created_at" />
+    <tara-image-thumbnail [file]="item" (showDetails)="handleImgDetails($event)"></tara-image-thumbnail>
+  </ng-container> -->
 </ul>
-<!-- <tara-image-details [file]="detailsFile" *ngIf="detailsVisibility" (onClose)="handleCloseDetails()"
-  (onDelete)="handleImageDelete($event)"></tara-image-details> -->
-<!-- The routed views render in the <router-outlet>-->
 <router-outlet></router-outlet>

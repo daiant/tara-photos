@@ -7,7 +7,7 @@ import { ImageDetailsComponent } from './views/images/details/image-details.comp
 import { SignupComponent } from './views/auth/signup/signup.component';
 
 export const routes: Routes = [
-  { path: "trash", component: TrashComponent },
+  // { path: "trash", component: TrashComponent },
   { path: "login", component: LoginComponent },
   { path: "logout", component: LogoutComponent },
   { path: "signup", component: SignupComponent },
