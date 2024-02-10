@@ -1,0 +1,11 @@
+<tara-auth-form (onSubmit)="handleSubmit($event)">
+  <header class="title">Welcome,<br><span>sign up to continue</span></header>
+  <input name="username" placeholder="Username" type="text">
+  <input name="email" placeholder="Email" type="email">
+  <input name="password" placeholder="Password" type="password">
+  <p class="error" *ngIf="error">{{error}}</p>
+  <button type="submit" [ngClass]="{loading: loading}">
+    {{loading ? 'Loading...' : 'Let`s go →'}}
+  </button>
+  <a routerLink="/login">Log in instead</a>
+</tara-auth-form>

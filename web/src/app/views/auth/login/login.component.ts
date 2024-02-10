@@ -1,15 +1,16 @@
 import { Component, inject } from "@angular/core";
-import { Router } from "@angular/router";
-import { UserService } from "../../../lib/users/user.service";
-import { TokenService } from "../../../lib/token/token.service";
+import { Router, RouterLink } from "@angular/router";
+import { UserService } from "../../../../lib/users/user.service";
+import { TokenService } from "../../../../lib/token/token.service";
 import { CommonModule } from '@angular/common';
+import { TaraAuthFormComponent } from "../common/form/form.component";
 
 @Component({
   selector: "tara-login",
   templateUrl: "./login.component.html",
   styleUrl: './login.component.css',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TaraAuthFormComponent, RouterLink]
 })
 export class LoginComponent {
   tokenService = inject(TokenService)
@@ -17,11 +18,9 @@ export class LoginComponent {
   router = inject(Router);
   loading = false;
   error?: string;
-  handleSubmit(event: SubmitEvent) {
-    event.preventDefault();
+  handleSubmit(event: FormData) {
     this.loading = true;
-    const formData = new FormData(event.target as HTMLFormElement);
-    this.userService.login(formData).then(data => {
+    this.userService.login(event).then(data => {
       this.loading = false;
       if (!data) {
         this._showError();

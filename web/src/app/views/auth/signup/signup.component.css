@@ -1,0 +1,6 @@
+:host {
+  display: grid;
+  place-content: center;
+  min-height: 100dvh;
+  background-color: #212121;
+}

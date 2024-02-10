@@ -1,9 +1,0 @@
-<form class="form" (submit)="handleSubmit($event)">
-  <div class="title">Welcome,<br><span>sign up to continue</span></div>
-  <input class="input" name="email" placeholder="Email" type="email">
-  <input class="input" name="password" placeholder="Password" type="password">
-  <p class="error" *ngIf="error">{{error}}</p>
-  <button class="button-confirm" type="submit" [ngClass]="{loading: loading}">
-    {{loading ? 'Loading...' : 'Let`s go →'}}
-  </button>
-</form>

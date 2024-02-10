@@ -1,11 +1,4 @@
-:host {
-  display: grid;
-  place-content: center;
-  min-height: 100dvh;
-  background-color: #212121;
-}
-
-.form {
+form {
   --input-focus: hsl(147, 87%, 26%);
   --font-color: #323232;
   --font-color-sub: #666;
@@ -23,20 +16,20 @@
   box-shadow: 4px 4px var(--main-color);
 }
 
-.title {
+header {
   color: var(--font-color);
   font-weight: 900;
   font-size: 20px;
   margin-bottom: 25px;
 }
 
-.title span {
+header span {
   color: var(--font-color-sub);
   font-weight: 600;
   font-size: 17px;
 }
 
-.input {
+input {
   width: 250px;
   height: 40px;
   border-radius: 5px;
@@ -50,12 +43,12 @@
   outline: none;
 }
 
-.input::placeholder {
+input::placeholder {
   color: var(--font-color-sub);
   opacity: 0.8;
 }
 
-.input:focus {
+input:focus {
   border: 2px solid var(--input-focus);
 }
 
@@ -64,7 +57,7 @@
   padding-block: 0;
 }
 
-.button-confirm {
+button {
   margin: 50px auto 0 auto;
   width: 120px;
   height: 40px;
@@ -78,8 +71,24 @@
   cursor: pointer;
 }
 
-.button-confirm.loading,
-.button-confirm:active {
+button.loading,
+button:active {
   box-shadow: 0px 0px var(--main-color);
   transform: translate(3px, 3px);
+}
+
+a {
+  color: black;
+  text-decoration: none;
+  margin-inline: auto;
+}
+
+a:focus,
+a:hover {
+  text-decoration: underline;
+}
+
+a:active {
+  outline-offset: 1px;
+  outline: 1px solid;
 }
